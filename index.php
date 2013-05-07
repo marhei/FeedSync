@@ -40,4 +40,9 @@ spl_autoload_register(function($classname) {
 * Konfiguration einbinden
 **/
 require_once CONFIG_PATH;
+
+/**
+* Programm starten
+**/
+new \Main();
 ?>

@@ -42,6 +42,6 @@ namespace Config\User {
 	// E-Mail-Adresse
 	const MAIL = 'test@mail.com';
 	// Passwort
-	const PASS = 'password';
+	const PASSWORD = 'password';
 }
 ?>
