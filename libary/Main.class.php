@@ -17,12 +17,9 @@ class Main {
 	* Öffnet das Main-Array und authentifiziert den Benutzer.
 	**/
 	public function __construct() {
-		// Auth-Keys vergleichen. Wenn falsch -> abbruch
-		if(self::getAPIKey() != Request::POST('api_key')) exit;
+		// Benutzer authentifizieren…
+		$this->authenticate();
 		
-		// Authentifizierungs-Informationen der Antwort hinzufügen
-		$this->response['api_version'] = \Config\API_VERSION;
-		$this->response['auth'] = true;
 		$this->response['last_refreshed_on_time'] = 0;
 	}
 	
@@ -31,6 +28,18 @@ class Main {
 	**/
 	public function __destruct() {
 		echo json_encode($this->response);
+	}
+	
+	/**
+	* Überprüft die Anmeldung für die API.
+	**/
+	private function authenticate() {
+		// Auth-Keys vergleichen. Wenn falsch -> abbruch
+		if(self::getAPIKey() != Request::POST('api_key')) exit;
+		
+		// Authentifizierungs-Informationen der Antwort hinzufügen
+		$this->response['api_version'] = \Config\API_VERSION;
+		$this->response['auth'] = true;
 	}
 	
 	/**
