@@ -1,6 +1,9 @@
 <?php
 /**
 * Stellt die API zur Verfügung. Für mehr Informationen, siehe http://www.feedafever.com/api
+* Es wurde zusätzlich einige Zusatzinformationen hinzugefügt:
+*	- „feedsync“ gibt immer true zurück.
+*	- „feedsync_version“ gibt die Version von FeedSync zurück.
 *
 * @copyright Copyright 2013 Marcel Heisinger
 * @link https://github.com/FeedSync/FeedSync
@@ -29,6 +32,12 @@ class API {
 		
 		// API-Version senden
 		$this->response['api_version'] = \Config\API_VERSION;
+		// Mitschicken, dass die API von FeedSync zur Verfügung gestellt wird
+		$this->response['feedsync'] = true;
+		// Die Version von FeedSync hinzufügen
+		$this->response['feedsync_version'] = \Config\VERSION;
+		
+		
 		// Vorrübergehend, damit ein Reeder-Crash vorgebeugt wird.
 		$this->response['last_refreshed_on_time'] = 0;
 	}
