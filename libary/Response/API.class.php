@@ -9,6 +9,7 @@
 * @author Marcel Heisinger
 * @package FeedSync
 **/
+namespace Response;
 
 class API {
 	const JSON = 'json';

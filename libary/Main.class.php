@@ -15,13 +15,25 @@ class Main {
 	* Entscheidet, welche Klasse geöffnet wird.
 	**/
 	public function __construct() {
-		// API-Aufruf? Klasse instanzieren.
-		if(\Core\Request::GET('api',false)!==false) {
-			// Was für eine Antwort wurde angefordert?
-			new API(\Core\Request::GET('api') ?: API::JSON);
-		} else {
-			
-		}
+		// Was wurde angefordert?
+		if(\Core\Request::GET('api',false)!==false) $this->callAPI();
+		else $this->callBackend();
+	}
+	
+	/**
+	* Ruft die API auf.
+	**/
+	private function callAPI() {
+		// Was für eine Antwort wurde angefordert?
+		new \Response\API(\Core\Request::GET('api') ?: \Response\API::JSON);
+	}
+	
+	/**
+	* Ruft das Backend auf.
+	**/
+	private function callBackend() {
+		// Mini-Backend zur Verfügung stellen
+		new \Response\Backend();
 	}
 }
 ?>
