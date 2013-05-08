@@ -9,6 +9,7 @@
 * @author Marcel Heisinger
 * @package FeedSync
 **/
+namespace Core;
 
 class Request {
 	/**
@@ -21,6 +22,18 @@ class Request {
 	public static function POST($key, $default=NULL) {
 		// Wenn Key vorhanden zurückgeben, sonst Standardwert
 		return isset($_POST[$key]) ? $_POST[$key] : $default;
+	}
+	
+	/**
+	* Element aus den mitgeschickten GET-Daten laden.
+	*
+	* @param string $key - Der Key
+	* @param mixed $default - Standardwert [optional]
+	* @return mixed
+	**/
+	public static function GET($key, $default=NULL) {
+		// Wenn Key vorhanden zurückgeben, sonst Standardwert
+		return isset($_GET[$key]) ? $_GET[$key] : $default;
 	}
 }
 ?>
