@@ -136,5 +136,14 @@ class MySQL {
 			$this->query($currentQuery);
 		}
 	}
+	
+	/**
+	* Gibt die zuletzt eingefügte ID zurück.
+	*
+	* @return int
+	**/
+	public function getLastID() {
+		return $this->pdoInstance->lastInsertID();
+	}
 }
 ?>
