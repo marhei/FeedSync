@@ -12,7 +12,7 @@
 **/
 namespace Core\Manager;
 
-interface Setable {
+interface Indentable {
 	/**
 	* Setzt die ID des Objekts automatisch.
 	*

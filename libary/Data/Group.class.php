@@ -11,8 +11,8 @@
 **/
 namespace Data;
 
-class Group implements \JsonSerializable {
-	private $title;
+class Group implements \JsonSerializable, \Core\Manager\Identable {
+	private $id, $title;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -20,7 +20,8 @@ class Group implements \JsonSerializable {
 	* @return array
 	**/
 	public function jsonSerialize() {
-		return array('title'=>$this->title);
+		return array(	'id'	=> $this->id,
+						'title'	=> $this->title);
 	}
 	
 	/**
@@ -30,6 +31,24 @@ class Group implements \JsonSerializable {
 	**/
 	public function __construct($title) {
 		$this->title = $title;
+	}
+	
+	/**
+	* Gibt die ID der Gruppe zurück.
+	*
+	* @return int
+	**/
+	public function getID() {
+		return $this->id;
+	}
+	
+	/**
+	* Setzt die ID der Gruppe.
+	*
+	* @param int $id
+	**/
+	public function setID($id) {
+		$this->id = $id;
 	}
 	
 	/**
