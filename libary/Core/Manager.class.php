@@ -132,7 +132,7 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 	*
 	* @param object $task - Das neue Objekt
 	**/
-	public function addObject( $object) {	
+	public function addObject($object) {	
 		// Was muss dafür in die DB geschrieben werden?
 		$contentArray = $this->getContentArrayForObject($object);
 		
@@ -140,6 +140,9 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 		$queryObject = $this->tableActions->insert($contentArray);
 		// Die letzte ID ermitteln
 		$objectID = MySQL::main()->getLastID();
+		
+		// ID dem Objekt hinzufügen, falls es ein Identable-Objekt ist.
+		if($object instanceof Manager\Identable) $object->setID($objectID);
 		
 		// Objekt dem Array hinzufügen
 		$this->objects[$objectID] = $object;

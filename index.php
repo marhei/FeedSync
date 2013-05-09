@@ -29,11 +29,17 @@ set_error_handler(function($errorNo, $errorString, $errorFile, $errorLine) {
 * Autoloading von Klassen
 **/
 spl_autoload_register(function($classname) {
-	// Dateinamen basteln
-	$filename = LIBARY_PATH.str_replace('\\', '/', $classname).'.class.php';
+	// Pfadnamen basteln
+	$pathname = LIBARY_PATH.str_replace('\\', '/', $classname);
 	
-	// Wenn die Datei existiert diese auch einbinden
-	if(file_exists($filename)) require_once $filename;
+	// Verschiedene Typen durchlaufen
+	foreach(array('class', 'interface', 'trait') as $current) {
+		// Dateinamen basteln
+		$filename = $pathname.'.'.$current.'.php';
+	
+		// Wenn die Datei existiert diese auch einbinden
+		if(file_exists($filename)) require_once $filename;
+	}
 });
 
 /**
