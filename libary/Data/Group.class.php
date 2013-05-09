@@ -11,8 +11,17 @@
 **/
 namespace Data;
 
-class Group {
+class Group implements \JsonSerializable {
 	private $title;
+	
+	/**
+	* Gibt die Rückgabewerte für die API zurück.
+	*
+	* @return array
+	**/
+	public function jsonSerialize() {
+		return array('title'=>$this->title);
+	}
 	
 	/**
 	* Erstellt eine neue Gruppe.
