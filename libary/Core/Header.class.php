@@ -152,6 +152,31 @@ class Header {
 	}
 	
 	/**
+	* Fügt eine Authentifizierung dem Aufruf hinzu.
+	*
+	* @param string $realm - Beschreibung der Anmeldung
+	* @param array $userNames - Erlaubte Benutzernamen
+	* @param array $userPasswords - Die dazugehöhrigen Passwörter
+	**/
+	protected function addAuthentication($realm, array $userNames, array $userPasswords) {
+		// Bereits Daten eingetragen und Benutzer in Array
+		if($_SERVER['PHP_AUTH_USER'] && in_array($_SERVER['PHP_AUTH_USER'], $userNames)) {
+			// ID des Benutzer suchen
+			$userID = array_search($_SERVER['PHP_AUTH_USER'], $userNames);
+			
+			// Passwort vergleichen
+			if($userPasswords[$userID] == $_SERVER['PHP_AUTH_PW']) return;
+		}
+		
+		// Richtigen HTTP-Code senden
+		$this->add('WWW-Authenticate: Basic realm="'.$realm.'"');
+		$this->addStatus(401);
+		
+		// Programmaufruf beenden
+		exit;
+	}
+	
+	/**
 	* Setzt einen Content-Type
 	*
 	* @param string $contentType - Der Content-Type

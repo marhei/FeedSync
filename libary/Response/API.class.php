@@ -51,7 +51,8 @@ class API {
 			echo json_encode($this->response);
 		// XML-Antwort?
 		else if($this->responseType == self::XML) {
-			
+			// Derzeit ist noch keine XML-Antwort möglich
+			throw new \Exception('Derzeit ist noch keine Antwort im XML-Format möglich. Es tut uns leid.', 1);
 		}
 	}
 	
