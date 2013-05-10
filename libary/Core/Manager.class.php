@@ -13,7 +13,20 @@ namespace Core;
 
 abstract class Manager implements \Countable, \IteratorAggregate {
 	protected $objects = array(), $unchangedObjects = array(), $tableActions;
-
+	
+	/**
+	* Gibt den Haupt-Manager zurück.
+	*
+	* @return Manager
+	**/
+	public static function main() {
+		// Header-Instanz erstellen
+		static::$mainInstance = static::$mainInstance ?: new static();
+									
+		// Header-Instanz zurückgeben
+		return static::$mainInstance;
+	}
+	
 	/**
 	* Bereitet die Datenbank-Tabelle vor.
 	**/

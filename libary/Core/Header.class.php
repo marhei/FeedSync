@@ -56,9 +56,9 @@ class Header {
 	protected $contentType = 'text/html';
 	
 	/**
-	* Gibt die Haupt-MySQL-Verbindung zurück.
+	* Gibt die Haupt-Header-Verbindung zurück.
 	*
-	* @return MySQL
+	* @return Header
 	**/
 	public static function main() {
 		// Statische Variable für die Hauptinstanz

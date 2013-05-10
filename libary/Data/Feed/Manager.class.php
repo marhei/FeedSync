@@ -1,6 +1,6 @@
 <?php
 /**
-* Verwaltet die Favicons in der Datenbank.
+* Verwaltet die Feeds in der Datenbank.
 *
 * @copyright Copyright 2013 Marcel Heisinger
 * @link https://github.com/FeedSync/FeedSync
@@ -9,10 +9,10 @@
 * @author Marcel Heisinger
 * @package FeedSync
 **/
-namespace Data\Favicon;
+namespace Data\Feed;
 
 class Manager extends \Core\Manager {
-	const TABLE = 'favicons';
+	const TABLE = 'feeds';
 	
 	public $mainInstance;
 	
