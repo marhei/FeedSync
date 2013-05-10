@@ -20,7 +20,7 @@ class Backend {
 		$header = \Core\Header::main();
 		
 		// Eine Authentifzierung hinzufügen
-		$header->addAuthentication(	'Du musst dich mit deiner E-Mail-Adresse und deinem Passwort einlogen.',
+		$header->addAuthentication(	'Du musst dich mit deiner E-Mail-Adresse und deinem Passwort einloggen.',
 									array(\Config\User\MAIL),
 									array(\Config\User\PASSWORD));
 	}

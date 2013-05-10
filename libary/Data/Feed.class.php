@@ -37,9 +37,15 @@ class Feed implements \JsonSerializable, \Core\Manager\Identable {
 	public function __construct($url) {
 		// Die URL des Feeds speichern
 		$this->url = $url;
-		
 		// Feeddaten laden
 		$this->updateFeedObject();
+		
+		// Favicon laden
+		$favicon = new Favicon($this->siteURL);
+		// Favicon dem Manager hinzufügen
+		Favicon\Manager::main()->addObject($favicon);
+		// Favicon-ID dem Feed hinzufügen
+		$this->faviconID = $favicon->getID();
 	}
 	
 	/**
@@ -81,6 +87,57 @@ class Feed implements \JsonSerializable, \Core\Manager\Identable {
 	**/
 	public function setID($id) {
 		$this->id = $id;
+	}
+	
+	/**
+	* Gibt das Favicon zurück.
+	*
+	* @return Favicon
+	**/
+	public function getFavicon() {
+		// Manager laden
+		$faviconManager = Favicon\Manager::main();
+		// Alle Favicons laden
+		$faviconManager->loadAll();
+	
+		// Vom Manager laden
+		return $faviconManager->getObjectForID($this->faviconID);
+	}
+	
+	/**
+	* Gibt den Titel des Feeds zurück.
+	*
+	* @return string
+	**/
+	public function getTitle() {
+		return $this->title;
+	}
+	
+	/**
+	* Gibt die URL des Feeds zurück.
+	*
+	* @return string
+	**/
+	public function getURL() {
+		return $this->url;
+	}
+	
+	/**
+	* Gibt die Seiten-URL des Feeds zurück.
+	*
+	* @return string
+	**/
+	public function getSiteURL() {
+		return $this->siteURL;
+	}
+	
+	/**
+	* Gibt das letze Update zurück.
+	*
+	* @return int
+	**/
+	public function getLastUpdate() {
+		return $this->lastUpdate;
 	}
 }
 ?>

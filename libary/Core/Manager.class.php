@@ -63,6 +63,13 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 	* Lädt alle Objekte aus der Datenbank
 	**/
 	public function loadAll() {
+		// Statisch Varible zu cachen
+		static $loaded = false;
+		// Bereits geladen? Abbruch!
+		if($loaded) return;
+		// Merken, dass es nun geladen ist
+		$loaded = true;
+	
 		// Alle Objekte laden
 		$queryObject = $this->tableActions->select();
 		// Zu dem Manager hinzufügen
