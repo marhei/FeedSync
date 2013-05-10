@@ -38,7 +38,7 @@ class API {
 		$this->response['feedsync_version'] = \Config\VERSION;
 		
 		
-		// Vorrübergehend, damit ein Reeder-Crash vorgebeugt wird.
+		// Vorrübergehend, damit ein Reeder-Crash vorgebeugt wird
 		$this->response['last_refreshed_on_time'] = 0;
 	}
 	

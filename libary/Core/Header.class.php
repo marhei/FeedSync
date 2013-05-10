@@ -77,16 +77,6 @@ class Header {
 	public function __construct() {		
 		// Den Standard-Content-Type setzen
 		if(!$this->isSent()) $this->setContentType($this->contentType);
-		
-		// OB-Cache starten, wenn nicht im DEBUG-Modus
-		if(!\Config\DEBUG) ob_start();
-	}
-	
-	/**
-	* Gespeicherten Inhalt ausgeben.
-	**/
-	public function __destruct() {
-		if(!\Config\DEBUG && ob_get_level()) ob_end_flush();
 	}
 	
 	/**
@@ -160,7 +150,7 @@ class Header {
 	**/
 	protected function addAuthentication($realm, array $userNames, array $userPasswords) {
 		// Bereits Daten eingetragen und Benutzer in Array
-		if($_SERVER['PHP_AUTH_USER'] && in_array($_SERVER['PHP_AUTH_USER'], $userNames)) {
+		if(isset($_SERVER['PHP_AUTH_USER']) && in_array($_SERVER['PHP_AUTH_USER'], $userNames)) {
 			// ID des Benutzer suchen
 			$userID = array_search($_SERVER['PHP_AUTH_USER'], $userNames);
 			
@@ -233,7 +223,7 @@ class Header {
 	* @param  array $arguments - Argumente
 	* @return mixed
 	**/
-	public function ___call($name, array $args) {
+	public function __call($name, array $args) {
 		// Exception werfen, wenn der Header bereits gesendet wurde.
 		if($this->isSent())
 			throw new \Exception('Der Header wurde bereits gesendet.', 1131);
