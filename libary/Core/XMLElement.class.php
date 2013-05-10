@@ -18,9 +18,9 @@ class XMLElement extends \SimpleXMLElement {
 	* @param string $filename - Dateiname
 	* @return self
 	**/
-	public static function loadFile($fileName) {
+	public static function loadFile($filename) {
 		try {
-			return simplexml_load_file($fileName, __CLASS__);
+			return simplexml_load_file($filename, __CLASS__);
 		} catch (\Exception $exception) {
 			throw new \Exception('Die angeforderte XML-Datei konnte nicht geladen werden.', 1, $exception);
 		}

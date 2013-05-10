@@ -32,10 +32,37 @@ class Feed implements \JsonSerializable, \Core\Manager\Identable {
 	/**
 	* Erstellt einen neuen Feed.
 	*
-	* @param string $title - Name der Gruppe.
+	* @param string $url - URL des Feeds
 	**/
 	public function __construct($url) {
-		// Hier kommt noch Feed-Magie hin.
+		// Die URL des Feeds speichern
+		$this->url = $url;
+		
+		// Feeddaten laden
+		$this->updateFeedObject();
+	}
+	
+	/**
+	* Gibt den Feed als Objekt zurück.
+	*
+	* @return XMLElement
+	**/
+	private function getFeedObject() {
+		// Den Feed öffnen
+		return \Core\XMLElement::loadFile($this->url)->channel[0];
+	}
+	
+	/**
+	* Updatet die Feed-Daten aus der URL.
+	**/
+	private function updateFeedInformation() {
+		// Den Feed öffnen
+		$feed = $this->getFeedObject();
+		
+		// Daten auslesen
+		$this->title = $feed->title;
+		$this->siteURL = $feed->link;
+		$this->lastUpdate = strtotime($feed->lastBuildDate);
 	}
 	
 	/**
