@@ -14,7 +14,7 @@ namespace Data\Feed;
 class Manager extends \Core\Manager {
 	const TABLE = 'feeds';
 	
-	public $mainInstance;
+	protected static $mainInstance;
 	
 	/**
 	* Gibt das Content-Array für ein Objekt zurück
@@ -24,5 +24,27 @@ class Manager extends \Core\Manager {
 	**/
 	protected function getContentArrayForObject($object) {
 		return ['object' => serialize($object)];
+	}
+	
+	/**
+	* Gibt zurück das Datum des aktuellsten Beitrags zurück.
+	*
+	* @return int
+	**/
+	public function getLastUpdate() {
+		// Alle Inhalte laden
+		$this->loadAll();
+		
+		// Variable vor definieren
+		$lastUpdate = 0;
+		// Alle Elemente durchlaufen
+		foreach($this as $current) {
+			// Noch neuer?
+			if($current->getLastUpdate() > $lastUpdate)
+				$lastUpdate = $current->getLastUpdate();
+		}
+		
+		// Ergebnis zurückgeben
+		return $lastUpdate;
 	}
 }

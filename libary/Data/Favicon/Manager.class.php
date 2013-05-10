@@ -14,7 +14,7 @@ namespace Data\Favicon;
 class Manager extends \Core\Manager {
 	const TABLE = 'favicons';
 	
-	public $mainInstance;
+	protected static $mainInstance;
 	
 	/**
 	* Gibt das Content-Array für ein Objekt zurück
