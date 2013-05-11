@@ -37,7 +37,6 @@ class API {
 		// Die Version von FeedSync hinzufügen
 		$this->response['feedsync_version'] = \Config\VERSION;
 		
-		
 		// Das letzte Aktuallisierungs-Datum aller Feeds anhängen
 		$this->response['last_refreshed_on_time'] = \Data\Feed\Manager::main()->getLastUpdate();
 	}
