@@ -16,7 +16,20 @@ class Backend {
 	const FOOTER_TEMPLATE = 'footer';
 	
 	const DEFAULT_MODULE = 'Start';
-	const MODULE_NAMESPACE = '\Response\Backend';
+	const MODULE_NAMESPACE = '\Response\Backend\\';
+	
+	private static $moduleVars = array();
+	
+	/**
+	* Eine Module-Variable setzen.
+	*
+	* @param string $key
+	* @param mixed $value
+	**/
+	public static function setModuleVar($key, $value) {
+		// Varibale setzen
+		self::$moduleVars[$key] = $value;
+	}
 
 	/**
 	* Fügt eine HTTP-Authentifizierung hinzu.
@@ -47,6 +60,29 @@ class Backend {
 		if(!class_exists($moduleClass)) throw new \Exception('Das angeforderte Module existiert nicht.', 2);
 		// Modul öffnen
 		new $moduleClass();
+		
+		// Template-Module gesetzt?
+		if(isset(self::$moduleVars['template'])) {
+			// Header-Template einfügen
+			$this->openTemplate(self::HEADER_TEMPLATE);
+			// Module-Template aufrufen
+			$this->openTemplate(self::$moduleVars['template']);
+			// Header-Template einfügen
+			$this->openTemplate(self::FOOTER_TEMPLATE);
+		}
+	}
+	
+	/**
+	* Gibt zurück, ob ein Template existiert.
+	*
+	* @param string $template
+	* @return bool
+	**/
+	private function existTemplate($template) {
+		// Name der Template-Datei basteln
+		$templateFile = TEMPLATE_PATH.$template.'.tpl.php';	
+		// Existiert die Template-Datei?
+		return file_exists($templateFile);
 	}
 	
 	/**
@@ -54,12 +90,14 @@ class Backend {
 	*
 	* @param string $template - Datei im Template-Ordner
 	**/
-	public function openTemplate($template) {
+	private function openTemplate($template) {
 		// Name der Template-Datei basteln
 		$templateFile = TEMPLATE_PATH.$template.'.tpl.php';	
 	
 		// Existiert das Template?
 		if(!file_exists($templateFile)) throw new \Exception('Das angeforderte Template existiert nicht.', 1);
+		// Das Template öffnen
+		include $templateFile;
 	}
 }
 ?>
