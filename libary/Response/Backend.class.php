@@ -12,6 +12,12 @@
 namespace Response;
 
 class Backend {
+	const HEADER_TEMPLATE = 'header';
+	const FOOTER_TEMPLATE = 'footer';
+	
+	const DEFAULT_MODULE = 'Start';
+	const MODULE_NAMESPACE = '\Response\Backend';
+
 	/**
 	* Fügt eine HTTP-Authentifizierung hinzu.
 	**/
@@ -23,6 +29,37 @@ class Backend {
 		$header->addAuthentication(	'Du musst dich mit deiner E-Mail-Adresse und deinem Passwort einloggen.',
 									array(\Config\User\MAIL),
 									array(\Config\User\PASSWORD));
+									
+		// Das angeforderte Module öffnen
+		$this->openRequestedModule();
+	}
+	
+	/**
+	* Öffnet das angeforderte Module.
+	**/
+	private function openRequestedModule() {
+		// Welches Modul wurde angefordert?
+		$module = \Core\Request::GET('module', self::DEFAULT_MODULE);
+		// Einen Klassennamen daraus bauen
+		$moduleClass = self::MODULE_NAMESPACE.$module;
+		
+		// Existiert das Module?
+		if(!class_exists($moduleClass)) throw new \Exception('Das angeforderte Module existiert nicht.', 2);
+		// Modul öffnen
+		new $moduleClass();
+	}
+	
+	/**
+	* Öffnet ein Template und stellt es dem User da.
+	*
+	* @param string $template - Datei im Template-Ordner
+	**/
+	public function openTemplate($template) {
+		// Name der Template-Datei basteln
+		$templateFile = TEMPLATE_PATH.$template.'.tpl.php';	
+	
+		// Existiert das Template?
+		if(!file_exists($templateFile)) throw new \Exception('Das angeforderte Template existiert nicht.', 1);
 	}
 }
 ?>

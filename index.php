@@ -15,6 +15,7 @@
 **/
 define('ROOT_PATH', __DIR__.'/');
 define('LIBARY_PATH', ROOT_PATH.'libary/');
+define('TEMPLATE_PATH', ROOT_PATH.'templates/');
 define('CONFIG_PATH', ROOT_PATH.'config.inc.php');
 
 /**
