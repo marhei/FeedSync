@@ -28,6 +28,19 @@ CREATE TABLE `feeds` (
 
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` text COLLATE utf8_bin NOT NULL,
+  `object` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `object` text COLLATE utf8_bin NOT NULL,
+  `createTime` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

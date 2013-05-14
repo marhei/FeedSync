@@ -48,3 +48,4 @@ class Manager extends \Core\Manager {
 		return $lastUpdate;
 	}
 }
+?>

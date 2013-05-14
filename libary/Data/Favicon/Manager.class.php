@@ -26,3 +26,4 @@ class Manager extends \Core\Manager {
 		return array('object' => serialize($object));
 	}
 }
+?>

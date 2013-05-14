@@ -28,7 +28,7 @@ class Item implements \JsonSerializable, \Core\Manager\Identable {
 						'url'				=> $this->url,
 						'is_saved'			=> $this->isSaved,
 						'is_read'			=> $this->isRead,
-						'created_on_time'	=> $this->lastUpdate);
+						'created_on_time'	=> $this->createTime);
 	}
 	
 	/**
