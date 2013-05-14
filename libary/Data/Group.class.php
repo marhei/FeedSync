@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Group implements \JsonSerializable, \Core\Manager\Identable {
+class Group implements \JsonSerializable, \Core\Manager\Indentable {
 	private $id, $title;
 	
 	/**

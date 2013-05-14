@@ -148,6 +148,15 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 	}
 	
 	/**
+	* Gibt alle Objekte des Managers zurück.
+	*
+	* @return array
+	**/
+	public function getAllObjects() {
+		return $this->objects;
+	}
+	
+	/**
 	* Fügt ein neues Objekt hinzu.
 	*
 	* @param object $task - Das neue Objekt

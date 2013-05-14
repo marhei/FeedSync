@@ -37,8 +37,8 @@ class API {
 		// Die Version von FeedSync hinzufügen
 		$this->response['feedsync_version'] = \Config\VERSION;
 		
-		// Das letzte Aktuallisierungs-Datum aller Feeds anhängen
-		$this->response['last_refreshed_on_time'] = \Data\Feed\Manager::main()->getLastUpdate();
+		// Die Anfrage zurückgeben
+		$this->addRequestedData();
 	}
 	
 	/**
@@ -66,6 +66,51 @@ class API {
 			// Abbruch des weiteren Skripts
 			exit;
 		} else $this->response['auth'] = true;
+	}
+	
+	/**
+	* Gibt die Daten zurück, die angefordert wurden.
+	**/
+	private function addRequestedData() {
+		// Das letzte Aktuallisierungs-Datum aller Feeds anhängen
+		$this->response['last_refreshed_on_time'] = \Data\Feed\Manager::main()->getLastUpdate();
+		// Sollen Beziehungen mitgeschickt werden?
+		$addRelationships = false;
+		
+		// Gruppen
+		if(\Core\Request::GET('groups',false)!==false) {
+			// Beziehungen mitschicken
+			$addRelationships = true;
+			// Daten vom Manager hinzufügen
+			$this->addManagerData('groups', \Data\Group\Manager::main());
+		}
+		
+		// Feeds
+		if(\Core\Request::GET('feeds',false)!==false) {
+			// Beziehungen mitschicken
+			$addRelationships = true;
+			// Daten vom Manager hinzufügen
+			$this->addManagerData('feeds', \Data\Feed\Manager::main());
+		}
+		
+		// Favicons
+		if(\Core\Request::GET('favicons',false)!==false) {
+			// Daten vom Manager hinzufügen
+			$this->addManagerData('favicons', \Data\Favicon\Manager::main());
+		}
+	}
+	
+	/**
+	* Fügt Daten eines Managers dem Response-Array hinzu.
+	*
+	* @param string $key
+	* @param \Core\Manager $manger
+	**/
+	private function addManagerData($key, \Core\Manager $manager) {
+		// Daten laden
+		$manager->loadAll();
+		// Daten hinzufügen
+		$this->response[$key] = $manager->getAllObjects();
 	}
 	
 	/**

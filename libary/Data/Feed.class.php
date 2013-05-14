@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Feed implements \JsonSerializable, \Core\Manager\Identable {
+class Feed implements \JsonSerializable, \Core\Manager\Indentable {
 	private $id, $faviconID, $title, $url, $siteURL, $lastUpdate;
 	
 	/**
@@ -38,7 +38,7 @@ class Feed implements \JsonSerializable, \Core\Manager\Identable {
 		// Die URL des Feeds speichern
 		$this->url = $url;
 		// Feeddaten laden
-		$this->updateFeedObject();
+		$this->updateFeedInformation();
 		
 		// Favicon laden
 		$favicon = new Favicon($this->siteURL);

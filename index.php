@@ -37,7 +37,6 @@ spl_autoload_register(function($classname) {
 	foreach(array('class', 'interface', 'trait') as $current) {
 		// Dateinamen basteln
 		$filename = $pathname.'.'.$current.'.php';
-	
 		// Wenn die Datei existiert diese auch einbinden
 		if(file_exists($filename)) require_once $filename;
 	}

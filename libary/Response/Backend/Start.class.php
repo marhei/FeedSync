@@ -18,6 +18,10 @@ class Start {
 	public function __construct() {
 		// Template definieren
 		\Response\Backend::setModuleVar('template', 'start');
+		
+		
+		$feed = new \Data\Feed('www.tagesschau.de/xml/rss2');
+		\Data\Feed\Manager::main()->addObject($feed);
 	}
 }
 ?>
