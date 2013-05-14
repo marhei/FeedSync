@@ -12,7 +12,7 @@
 namespace Data;
 
 class Group implements \JsonSerializable, \Core\Manager\Indentable {
-	private $id, $title;
+	private $id, $title, $relationship;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -31,6 +31,9 @@ class Group implements \JsonSerializable, \Core\Manager\Indentable {
 	**/
 	public function __construct($title) {
 		$this->title = $title;
+		
+		// Neue Beziehung erstellen
+		$this->relationship = new Group\Relationship();
 	}
 	
 	/**
@@ -49,6 +52,9 @@ class Group implements \JsonSerializable, \Core\Manager\Indentable {
 	**/
 	public function setID($id) {
 		$this->id = $id;
+		
+		// Auch ID der Beziehung ädern
+		$this->relationship->setID($id);
 	}
 	
 	/**
@@ -67,6 +73,15 @@ class Group implements \JsonSerializable, \Core\Manager\Indentable {
 	**/
 	public function setTitle($title) {
 		$this->title = $title;
+	}
+	
+	/**
+	* Gibt die Beziehung zurück.
+	*
+	* @return Group\Relationship
+	**/
+	public function getRelationship() {
+		return $this->relationship;
 	}
 }
 ?>

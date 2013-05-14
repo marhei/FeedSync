@@ -23,6 +23,6 @@ class Manager extends \Core\Manager {
 	* @return array - Content-Array
 	**/
 	protected function getContentArrayForObject($object) {
-		return ['object' => serialize($object)];
+		return array('object' => serialize($object));
 	}
 }

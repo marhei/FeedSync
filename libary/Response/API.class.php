@@ -95,7 +95,12 @@ class API {
 		
 		// Feed/Gruppen-Beziehungen
 		if($addRelationships) {
-			$this->response['feeds_groups'] = array();
+			// Gruppen-Manager laden
+			$manager = \Data\Group\Manager::main();
+			// Alle Elemente laden
+			$manager->loadAll();
+		
+			$this->response['feeds_groups'] = $manager->getRelationshipObjects();
 		}
 		
 		// Favicons

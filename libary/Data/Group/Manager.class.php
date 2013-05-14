@@ -23,6 +23,21 @@ class Manager extends \Core\Manager {
 	* @return array - Content-Array
 	**/
 	protected function getContentArrayForObject($object) {
-		return ['object' => serialize($object)];
+		return array('object' => serialize($object));
+	}
+	
+	/**
+	* Gibt alle Relationship-Objekte zurück.
+	*
+	* @return array
+	**/
+	public function getRelationshipObjects() {
+		// Leeres Array
+		$relationships = array();
+		// Alle Gruppen durchlaufen
+		foreach($this as $currentGroup)
+			$relationships[] = $currentGroup->getRelationship();
+			
+		return $relationships;
 	}
 }
