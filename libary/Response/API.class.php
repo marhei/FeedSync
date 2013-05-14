@@ -115,7 +115,7 @@ class API {
 		// Daten laden
 		$manager->loadAll();
 		// Daten hinzufügen
-		$this->response[$key] = $manager->getAllObjects();
+		$this->response[$key] = array_values($manager->getAllObjects());
 	}
 	
 	/**
