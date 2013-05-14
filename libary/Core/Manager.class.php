@@ -170,13 +170,13 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 		// Die letzte ID ermitteln
 		$objectID = MySQL::main()->getLastID();
 		
-		// ID dem Objekt hinzufügen, falls es ein Identable-Objekt ist.
-		if($object instanceof Manager\Identable) $object->setID($objectID);
-		
 		// Objekt dem Array hinzufügen
 		$this->objects[$objectID] = $object;
 		// Objekt zum Vergleich klonen
 		$this->unchangedObjects[$objectID] = clone $object;
+		
+		// ID dem Objekt hinzufügen, falls es ein Identable-Objekt ist.
+		if($object instanceof Manager\Indentable) $object->setID($objectID);
 	}
 	
 	/**

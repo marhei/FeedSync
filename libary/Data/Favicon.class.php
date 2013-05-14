@@ -69,7 +69,7 @@ class Favicon implements \JsonSerializable, \Core\Manager\Indentable {
 	* @return string
 	**/
 	public function getData() {
-		return $this->data
+		return $this->data;
 	}
 }
 ?>

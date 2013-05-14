@@ -66,9 +66,9 @@ class Feed implements \JsonSerializable, \Core\Manager\Indentable {
 		$feed = $this->getFeedObject();
 		
 		// Daten auslesen
-		$this->title = $feed->title;
-		$this->siteURL = $feed->link;
-		$this->lastUpdate = strtotime($feed->lastBuildDate);
+		$this->title = (string) $feed->title;
+		$this->siteURL = (string) $feed->link;
+		$this->lastUpdate = strtotime((string) $feed->lastBuildDate);
 	}
 	
 	/**

@@ -20,8 +20,8 @@ class Start {
 		\Response\Backend::setModuleVar('template', 'start');
 		
 		
-		$feed = new \Data\Feed('www.tagesschau.de/xml/rss2');
-		\Data\Feed\Manager::main()->addObject($feed);
+		//$feed = new \Data\Feed('http://www.tagesschau.de/xml/rss2');
+		//\Data\Feed\Manager::main()->addObject($feed);
 	}
 }
 ?>

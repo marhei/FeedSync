@@ -93,6 +93,11 @@ class API {
 			$this->addManagerData('feeds', \Data\Feed\Manager::main());
 		}
 		
+		// Feed/Gruppen-Beziehungen
+		if($addRelationships) {
+			$this->response['feeds_groups'] = array();
+		}
+		
 		// Favicons
 		if(\Core\Request::GET('favicons',false)!==false) {
 			// Daten vom Manager hinzufügen
