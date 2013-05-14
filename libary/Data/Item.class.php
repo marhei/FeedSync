@@ -12,6 +12,120 @@
 namespace Data;
 
 class Item implements \JsonSerializable, \Core\Manager\Identable {
+	private $id, $feedID, $title, $author, $html, $url, $createTime;
+	private $isSaved = false, $isRead = false;
 	
+	/**
+	* Gibt die Rückgabewerte für die API zurück.
+	*
+	* @return array
+	**/
+	public function jsonSerialize() {
+		return array(	'id'				=> $this->id,
+						'feed_id'			=> $this->feedID,
+						'title'				=> $this->title,
+						'author'			=> $this->author,
+						'url'				=> $this->url,
+						'is_saved'			=> $this->isSaved,
+						'is_read'			=> $this->isRead,
+						'created_on_time'	=> $this->lastUpdate);
+	}
+	
+	/**
+	* Erzeugt ein neues Item.
+	*
+	* @param \Data\Feed $feed
+	* @param string $title
+	* @param string $author
+	* @param string $html
+	* @param string $url
+	* @param string $createTime
+	**/
+	public function __construct(\Data\Feed $feed, $title, $author, $html, $url, $createTime) {
+		// ID speichern
+		$this->feedID = $feed->getID();
+		
+		// Daten speichern
+		$this->title = $title;
+		$this->author = $author;
+		$this->html = $html;
+		$this->url = $url;
+		$this->createTime = $createTime;
+	}
+	
+	/**
+	* Gibt die ID der Gruppe zurück.
+	*
+	* @return int
+	**/
+	public function getID() {
+		return $this->id;
+	}
+	
+	/**
+	* Setzt die ID der Gruppe.
+	*
+	* @param int $id
+	**/
+	public function setID($id) {
+		$this->id = $id;
+		
+		// Auch ID der Beziehung ädern
+		$this->relationship->setID($id);
+	}
+	
+	/**
+	* Gibt die ID des Feeds zurück.
+	*
+	* @return string
+	**/
+	public function getFeedID() {
+		return $this->feedID;
+	}
+	
+	/**
+	* Gibt den Namen des Items zurück.
+	*
+	* @return string
+	**/
+	public function getTitle() {
+		return $this->title;
+	}
+	
+	/**
+	* Gibt den Autor des Items zurück.
+	*
+	* @return string
+	**/
+	public function getAuthor() {
+		return $this->author;
+	}
+	
+	/**
+	* Gibt den HTML-Inhalt des Items zurück.
+	*
+	* @return string
+	**/
+	public function getHTML() {
+		return $this->html;
+	}
+	
+	/**
+	* Gibt die URL des Items zurück.
+	*
+	* @return string
+	**/
+	public function getURL() {
+		return $this->url;
+	}
+	
+	/**
+	* Gibt das Erstellerdatum des Items zurück.
+	*
+	* @return string
+	**/
+	public function getCreateTime() {
+		return $this->createTime;
+	}
 }
 ?>

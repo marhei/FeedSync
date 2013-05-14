@@ -108,6 +108,12 @@ class API {
 			// Daten vom Manager hinzufügen
 			$this->addManagerData('favicons', \Data\Favicon\Manager::main());
 		}
+		
+		// Hot Links (nicht unterstützt)
+		if(\Core\Request::GET('links',false)!==false) {
+			// Daten vom Manager hinzufügen (Leeres Array)
+			$this->response['links'] = array();
+		}
 	}
 	
 	/**
