@@ -16,9 +16,9 @@
 **/
 namespace Config {
 	// Versionsnummer des Skripts
-	const VERSION = '0.5alpha';
+	const VERSION = '0.6alpha';
 	// Welche API-Version spiegelt dieses Skript wider.
-	const API_VERSION = 1;
+	const API_VERSION = 2;
 }
 
 /**
