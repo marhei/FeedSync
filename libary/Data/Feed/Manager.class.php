@@ -47,5 +47,17 @@ class Manager extends \Core\Manager {
 		// Ergebnis zurückgeben
 		return $lastUpdate;
 	}
+	
+	/**
+	* Updatet alle Item-Listen.
+	**/
+	public function updateAllItemLists() {
+		// Alle Inhalte laden
+		$this->loadAll();
+		
+		// Alle Elemente durchlaufen
+		foreach($this as $current)
+			$current->updateItemList();
+	}
 }
 ?>

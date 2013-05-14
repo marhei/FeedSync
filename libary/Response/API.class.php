@@ -37,6 +37,9 @@ class API {
 		// Die Version von FeedSync hinzufügen
 		$this->response['feedsync_version'] = \Config\VERSION;
 		
+		// Alle RSS-Feeds abgleichen
+		\Data\Feed\Manager::main()->updateAllItemLists();
+		
 		// Die Anfrage zurückgeben
 		$this->addRequestedData();
 	}
@@ -107,6 +110,26 @@ class API {
 		if(\Core\Request::GET('favicons',false)!==false) {
 			// Daten vom Manager hinzufügen
 			$this->addManagerData('favicons', \Data\Favicon\Manager::main());
+		}
+		
+		// Items
+		if(\Core\Request::GET('items',false)!==false) {
+			// Manager laden
+			$manager = \Data\Item\Manager::main();
+		
+			/*if(is_numeric(\Core\Request::GET('since_id',false))) { // 50 neue Items seit dieser ID
+				
+			} else if(is_numeric(\Core\Request::GET('max_id',false))) { // 50 neue Items vor dieser ID
+			
+			} else if(\Core\Request::GET('with_ids',false)!==false) { // Items mit dieser ID
+			
+			} else { // Alle Items (Haha!)*/
+				// Daten vom Manager hinzufügen
+				$this->addManagerData('items', $manager);
+			//}
+			
+			// Gesamt-Anzahl aller Items in der Datenbank
+			$this->response['total_items'] = $manager->countAll();
 		}
 		
 		// Hot Links (nicht unterstützt)

@@ -37,8 +37,11 @@ class Feed implements \JsonSerializable, \Core\Manager\Indentable {
 	public function __construct($url) {
 		// Die URL des Feeds speichern
 		$this->url = $url;
+		
 		// Feeddaten laden
 		$this->updateFeedInformation();
+		// Neue Einträge laden
+		// $this->updateItemList(); // Geht erst nach dem Hinzufügen
 		
 		// Favicon laden
 		$favicon = new Favicon($this->siteURL);
@@ -68,6 +71,36 @@ class Feed implements \JsonSerializable, \Core\Manager\Indentable {
 		// Daten auslesen
 		$this->title = (string) $feed->title;
 		$this->siteURL = (string) $feed->link;
+	}
+	
+	/**
+	* Sucht nach neuen Items.
+	**/
+	public function updateItemList() {
+		// Den Feed öffnen
+		$feed = $this->getFeedObject();
+		// Manager auslesen
+		$manager = Item\Manager::main();
+	
+		// Allem Items im RSS-Dings aulesen
+		foreach($feed->item as $currentItem) {
+			// Daten auslesen
+			$title = (string) $currentItem->title;
+			$html = (string) $currentItem->description;
+			$author = (string) $currentItem->author;
+			$url = (string) $currentItem->link;
+			$createTime = strtotime((string) $currentItem->pubDate);
+			
+			// Der Artikel wurde vor dem letzten Aktuallisieren eingefügt? Abbruch!
+			if($createTime < $this->lastUpdate) continue;
+			
+			// Item erstellen
+			$item = new Item($this, $title, $author, $html, $url, $createTime);
+			// Item dem Manager hinzufügen
+			$manager->addObject($item);
+		}
+		
+		// Letzten Update aktuallisieren
 		$this->lastUpdate = strtotime((string) $feed->lastBuildDate);
 	}
 	

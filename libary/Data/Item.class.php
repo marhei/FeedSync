@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Item implements \JsonSerializable, \Core\Manager\Identable {
+class Item implements \JsonSerializable, \Core\Manager\Indentable {
 	private $id, $feedID, $title, $author, $html, $url, $createTime;
 	private $isSaved = false, $isRead = false;
 	
@@ -25,6 +25,7 @@ class Item implements \JsonSerializable, \Core\Manager\Identable {
 						'feed_id'			=> $this->feedID,
 						'title'				=> $this->title,
 						'author'			=> $this->author,
+						'html'				=> $this->html,
 						'url'				=> $this->url,
 						'is_saved'			=> $this->isSaved,
 						'is_read'			=> $this->isRead,
@@ -69,9 +70,6 @@ class Item implements \JsonSerializable, \Core\Manager\Identable {
 	**/
 	public function setID($id) {
 		$this->id = $id;
-		
-		// Auch ID der Beziehung ädern
-		$this->relationship->setID($id);
 	}
 	
 	/**
