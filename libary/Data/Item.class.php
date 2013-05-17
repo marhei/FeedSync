@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Item implements \JsonSerializable, \Core\Manager\Indentable {
+class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	private $id, $feedID, $title, $author, $html, $url, $createTime;
 	private $isSaved = false, $isRead = false;
 	

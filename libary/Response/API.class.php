@@ -18,7 +18,7 @@ class API {
 	const JSON = 'json';
 	const XML = 'xml';
 
-	private $response = [], $responseType;
+	private $response = array(), $responseType;
 	
 	/**
 	* Öffnet das Main-Array und authentifiziert den Benutzer.
@@ -49,10 +49,12 @@ class API {
 	**/
 	public function __destruct() {
 		// JSON-Antwort erwünscht?
-		if($this->responseType == self::JSON)
-			echo json_encode($this->response);
-		// XML-Antwort?
-		else if($this->responseType == self::XML) {
+		if($this->responseType == self::JSON) {
+			// Neue Instanz der JSON-Klasse
+			$json = new \Core\JSON($this->response);
+			// Ausgabe
+			echo $json;
+		} else if($this->responseType == self::XML) { // XML-Antwort?
 			// Derzeit ist noch keine XML-Antwort möglich
 			throw new \Exception('Derzeit ist noch keine Antwort im XML-Format möglich. Es tut uns leid.', 1);
 		}

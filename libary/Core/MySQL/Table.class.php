@@ -35,7 +35,8 @@ class Table {
 		$sql = 'SELECT count(*) FROM '.$this->table;
 		$sql .= $this->makeWhereString($where);
 		
-		return $this->mysqlInstance->query($sql)->fetch()['count(*)'];
+		$result = $this->mysqlInstance->query($sql)->fetch();		
+		return $result['count(*)'];
 	}
 	
 	/**
@@ -58,7 +59,7 @@ class Table {
 	* @param array $update - Was soll geupdatet werden, wenn der bereits vorhanden ist. [optional]
 	* @return MySQLQuery - Query-Objekt
 	**/
-	public function insert(array $content, array $update = []) {
+	public function insert(array $content, array $update = array()) {
 		$sql = 'INSERT INTO '.$this->table;
 		$sql .= $this->makeSetString($content);
 		if(count($update)) {

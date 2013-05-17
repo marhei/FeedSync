@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Favicon implements \JsonSerializable, \Core\Manager\Indentable {
+class Favicon implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	const SERVICE_URL = 'http://www.google.com/s2/favicons?domain=';
 	const SERVICE_RESPONSE = 'image/png';
 

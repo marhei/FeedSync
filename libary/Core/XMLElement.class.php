@@ -43,8 +43,8 @@ class XMLElement extends \SimpleXMLElement {
 		}
 		
 		// Ungewollte verschachtelte Arrays vermeiden.
-		if(count($array) == 1 && is_array(array_values($array)[0]))
-			$array = array_values($array)[0];
+		if(count($array) == 1 && is_array(current($array)))
+			$array = current($array);
 		
 		return $array;
 	}

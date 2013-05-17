@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Feed implements \JsonSerializable, \Core\Manager\Indentable {
+class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	private $id, $faviconID, $title, $url, $siteURL, $lastUpdate;
 	
 	/**
