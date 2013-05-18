@@ -17,6 +17,57 @@ class Manager extends \Core\Manager {
 	protected static $mainInstance;
 	
 	/**
+	* Lädt 50 Objekte seit einer ID aus der DB.
+	*
+	* @param int $id
+	**/
+	public function loadSinceID($id) {
+		// ID maskieren
+		$id = \Core\MySQL::main()->quoteString($id);
+	
+		// Alle Objekte laden
+		$queryObject = $this->tableActions->select(" id > ".$id." ORDER BY id DESC LIMIT 0,50");
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
+	* Lädt 50 Objekte bevor einer ID aus der DB.
+	*
+	* @param int $id
+	**/
+	public function loadBeforeID($id) {
+		// ID maskieren
+		$id = \Core\MySQL::main()->quoteString($id);
+	
+		// Alle Objekte laden
+		$queryObject = $this->tableActions->select(" id < ".$id." ORDER BY id ASC LIMIT 0,50");
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
+	* Lädt beliebige Objekte
+	*
+	* @param array $id
+	**/
+	public function loadIDs(array $ids) {
+		$whereString = '';
+		$more = '';
+		
+		// Alle IDs durchlaufen
+		foreach($ids as $current) {
+			$whereString .= $more.'id = '.\Core\MySQL::main()->quoteString($current);
+			$more = ' OR ';
+		}
+	
+		// Alle Objekte laden
+		$queryObject = $this->tableActions->select($whereString);
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
 	* Gibt das Content-Array für ein Objekt zurück
 	*
 	* @param object $object - Das Objekt

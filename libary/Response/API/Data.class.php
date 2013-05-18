@@ -81,16 +81,25 @@ class Data {
 		// Manager laden
 		$manager = \Data\Item\Manager::main();
 		
-		/*if(is_numeric(\Core\Request::GET('since_id',false))) { // 50 neue Items seit dieser ID
-				
-		} else if(is_numeric(\Core\Request::GET('max_id',false))) { // 50 neue Items vor dieser ID
-			
-		} else if(\Core\Request::GET('with_ids',false)!==false) { // Items mit dieser ID
-		
-		} else { // Alle Items (Haha!)*/
+		if(is_numeric($id = \Core\Request::GET('since_id',false))) { // 50 neue Items seit dieser ID
+			// Daten laden 
+			$manager->loadSinceID($id);
+			// Daten hinzufügen
+			$this->apiInstance->addResponse('items', array_values($manager->getAllObjects()));
+		} else if(is_numeric($id = \Core\Request::GET('max_id',false))) { // 50 neue Items vor dieser ID
+			// Daten laden
+			$manager->loadBeforeID($id);
+			// Daten hinzufügen
+			$this->apiInstance->addResponse('items', array_values($manager->getAllObjects()));
+		} else if(\Core\Request::issetGET('with_ids')) { // Items mit dieser ID
+			// Daten laden
+			$manager->loadIDs(explode(',', \Core\Request::GET('whith_ids')));
+			// Daten hinzufügen
+			$this->apiInstance->addResponse('items', array_values($manager->getAllObjects()));
+		} else { // Alle Items
 			// Daten vom Manager hinzufügen
 			$this->addManagerData('items', $manager);
-		//}
+		}
 		
 		// Gesamt-Anzahl aller Items in der Datenbank
 		$this->apiInstance->addResponse('total_items', $manager->countAll());
