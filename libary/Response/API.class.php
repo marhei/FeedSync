@@ -40,8 +40,8 @@ class API {
 		// Alle RSS-Feeds abgleichen
 		\Data\Feed\Manager::main()->updateAllItemLists();
 		
-		// Die Anfrage zurückgeben
-		$this->addRequestedData();
+		// Die Daten zurückgeben
+		new API\Data($this);
 	}
 	
 	/**
@@ -74,84 +74,13 @@ class API {
 	}
 	
 	/**
-	* Gibt die Daten zurück, die angefordert wurden.
-	**/
-	private function addRequestedData() {
-		// Das letzte Aktuallisierungs-Datum aller Feeds anhängen
-		$this->response['last_refreshed_on_time'] = \Data\Feed\Manager::main()->getLastUpdate();
-		// Sollen Beziehungen mitgeschickt werden?
-		$addRelationships = false;
-		
-		// Gruppen
-		if(\Core\Request::GET('groups',false)!==false) {
-			// Beziehungen mitschicken
-			$addRelationships = true;
-			// Daten vom Manager hinzufügen
-			$this->addManagerData('groups', \Data\Group\Manager::main());
-		}
-		
-		// Feeds
-		if(\Core\Request::GET('feeds',false)!==false) {
-			// Beziehungen mitschicken
-			$addRelationships = true;
-			// Daten vom Manager hinzufügen
-			$this->addManagerData('feeds', \Data\Feed\Manager::main());
-		}
-		
-		// Feed/Gruppen-Beziehungen
-		if($addRelationships) {
-			// Gruppen-Manager laden
-			$manager = \Data\Group\Manager::main();
-			// Alle Elemente laden
-			$manager->loadAll();
-		
-			$this->response['feeds_groups'] = $manager->getRelationshipObjects();
-		}
-		
-		// Favicons
-		if(\Core\Request::GET('favicons',false)!==false) {
-			// Daten vom Manager hinzufügen
-			$this->addManagerData('favicons', \Data\Favicon\Manager::main());
-		}
-		
-		// Items
-		if(\Core\Request::GET('items',false)!==false) {
-			// Manager laden
-			$manager = \Data\Item\Manager::main();
-		
-			/*if(is_numeric(\Core\Request::GET('since_id',false))) { // 50 neue Items seit dieser ID
-				
-			} else if(is_numeric(\Core\Request::GET('max_id',false))) { // 50 neue Items vor dieser ID
-			
-			} else if(\Core\Request::GET('with_ids',false)!==false) { // Items mit dieser ID
-			
-			} else { // Alle Items (Haha!)*/
-				// Daten vom Manager hinzufügen
-				$this->addManagerData('items', $manager);
-			//}
-			
-			// Gesamt-Anzahl aller Items in der Datenbank
-			$this->response['total_items'] = $manager->countAll();
-		}
-		
-		// Hot Links (nicht unterstützt)
-		if(\Core\Request::GET('links',false)!==false) {
-			// Daten vom Manager hinzufügen (Leeres Array)
-			$this->response['links'] = array();
-		}
-	}
-	
-	/**
-	* Fügt Daten eines Managers dem Response-Array hinzu.
+	* Fügt etwas der Rückgabe hinzu.
 	*
 	* @param string $key
-	* @param \Core\Manager $manger
+	* @param mixed $content
 	**/
-	private function addManagerData($key, \Core\Manager $manager) {
-		// Daten laden
-		$manager->loadAll();
-		// Daten hinzufügen
-		$this->response[$key] = array_values($manager->getAllObjects());
+	public function addResponse($key, $content) {
+		$this->response[$key] = $content;
 	}
 	
 	/**

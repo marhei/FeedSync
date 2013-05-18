@@ -25,6 +25,16 @@ class Request {
 	}
 	
 	/**
+	* Gibt zurück, ob ein POST-Element gesetzt ist.
+	*
+	* @param string $key
+	* @return bool
+	**/
+	public static function issetPOST($key) {
+		return isset($_POST[$key]);
+	}
+	
+	/**
 	* Element aus den mitgeschickten GET-Daten laden.
 	*
 	* @param string $key - Der Key
@@ -34,6 +44,16 @@ class Request {
 	public static function GET($key, $default=NULL) {
 		// Wenn Key vorhanden zurückgeben, sonst Standardwert
 		return isset($_GET[$key]) ? $_GET[$key] : $default;
+	}
+	
+	/**
+	* Gibt zurück, ob ein GET-Element gesetzt ist.
+	*
+	* @param string $key
+	* @return bool
+	**/
+	public static function issetGET($key) {
+		return isset($_GET[$key]);
 	}
 }
 ?>
