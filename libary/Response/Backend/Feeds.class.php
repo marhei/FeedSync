@@ -27,6 +27,42 @@ class Feeds {
 		$this->manager->loadAll();
 		// Manager dem Modul hinzufügen
 		\Response\Backend::setModuleVar('manager', $this->manager);
+		
+		try {
+			// Feed löschen
+			if(\Core\Request::GET('deleteFeed', false)) $this->deleteFeed();
+			// Feed hinzufügen
+			if(\Core\Request::GET('addFeed', false)) $this->addFeed();
+		} catch(\Exception $exception) {
+			\Response\Backend::setModuleVar('error', $exception->getMessage().' ('.$exception->getCode().')');
+		}
+	}
+	
+	/**
+	* Fügt einen Feed hinzu.
+	**/
+	public function addFeed() {
+		try {
+			// Feed-URL laden
+			$feedURL = 'http://'.\Core\Request::POST('feedURL');
+			// Feed-Objekt erstellen
+			$feedObject = new \Data\Feed($feedURL);
+			
+			// Feed-Objekt dem Manager hinzufügen
+			$this->manager->addObject($feedObject);
+		} catch(\Exception $exception) {
+			throw new \Exception('Der Feed konnte nicht hinzugefügt werden. Eventuell ist das kein gültiger Feed.', 1, $exception);
+		}
+	}
+	
+	/**
+	* Löscht einen Feed.
+	**/
+	public function deleteFeed() {
+		// Feed-ID laden
+		$feedID = \Core\Request::GET('feedID', -1);
+		// Löschen
+		$this->manager->removeObject($feedID);
 	}
 }
 ?>

@@ -7,6 +7,13 @@
 		Du kannst hier neue Feeds hinzufügen oder alte löschen. Weitere Funktionen, zum Beispiel zum Sortieren von Feeds in Gruppen, kommen in spätere Versionen.
 	</p>
 	
+	<? if(isset(self::$moduleVars['error'])): ?>
+		<div class="alert alert-error">
+			<strong>Verdammt!</strong>
+			<?= \Core\Format::string(self::$moduleVars['error']) ?>
+		</div>
+	<? endif; ?>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -31,7 +38,7 @@
 					<td><span class="badge">?</span></td>
 					<td>
 						<div class="btn-group">
-							<button class="btn btn-mini btn-danger">Löschen</button>
+							<button class="btn btn-mini btn-danger" onclick="location.href='index.php?deleteFeed=true&feedID=<?= $currentElement->getID() ?>'">Löschen</button>
 							<button class="btn btn-mini btn-danger dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
 							</button>
@@ -46,10 +53,10 @@
 		</tbody>
 	</table>
 	
-	<form class="form-inline text-center">
+	<form class="form-inline text-center" action="index.php?addFeed=true" method="post">
 		 <div class="input-prepend">
 		 	<span class="add-on">http://</span>
-		 	<input type="text" placeholder="Feed-URL" name="feed">
+		 	<input type="text" placeholder="Feed-URL" name="feedURL">
 		 </div>
 		 <input class="btn" type="submit" value="Feed hinzufügen">
 	</form>
