@@ -27,13 +27,15 @@
     		<tr>
     			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
     			<td>
-    				<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="Favicon">
-    				<?= \Core\Format::string($currentElement->getTitle()) ?>
+    				<a href="<?= \Core\Format::string($currentElement->getSiteURL()) ?>" title="Webseite besuchen">
+    					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="Favicon">
+						<?= \Core\Format::string($currentElement->getTitle()) ?>
+    				</a>
     			</td>
     			<td><?= \Core\Format::string($currentElement->getURL()) ?></td>
     			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false, false) ?></td>
     			<td>
-    				<span class="badge">
+    				<span class="badge" title="davon <?= \Core\Format::number($currentElement->countUnreadItems()) ?> ungelesen">
     					<?= \Core\Format::number($currentElement->countAllItems()) ?>
     				</span>
     			</td>
