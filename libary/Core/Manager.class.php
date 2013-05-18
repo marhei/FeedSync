@@ -95,6 +95,9 @@ abstract class Manager implements \Countable, \IteratorAggregate {
 			// Geclontes Objekt dem Array hinzufügen (Für späteren Vergleich.)
 			$this->unchangedObjects[$currentRow['id']] = clone $newObject;
 		}
+		
+		// Die Objekte sortieren
+		ksort($this->objects);
 	}
 	
 	/**
