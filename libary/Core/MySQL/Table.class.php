@@ -110,7 +110,7 @@ class Table {
 		$setString = '';
 		foreach($content as $colName => $value) {
 			if (!empty($setString)) $setString .= ', ';
-			$setString .= $colName.'='.$this->mysqlInstance->quoteString($value);
+			$setString .= '`'.$colName.'` ='.$this->mysqlInstance->quoteString($value);
 		}
 		
 		return ($setKeyword?' SET ':' ').$setString.' ';
@@ -135,13 +135,13 @@ class Table {
 					foreach($value as $colName => $value) {
 						if (!$start) $setString .= ' OR ';
 						
-						$setString .= $colName.'='.$this->mysqlInstance->quoteString($value);
+						$setString .= '`'.$colName.'` ='.$this->mysqlInstance->quoteString($value);
 						
 						$start = false;
 					}
 					$setString .= ') ';
 				} else
-					$setString .= $colName.'='.$this->mysqlInstance->quoteString($value);
+					$setString .= '`'.$colName.'` ='.$this->mysqlInstance->quoteString($value);
 			}
 		
 			return ' WHERE '.$setString.' ';

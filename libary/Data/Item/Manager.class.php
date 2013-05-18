@@ -23,7 +23,10 @@ class Manager extends \Core\Manager {
 	* @return array - Content-Array
 	**/
 	protected function getContentArrayForObject($object) {
-		return array('object' => serialize($object), 'createTime' => $object->getCreateTime());
+		return array(	'object' 		=> serialize($object),
+						'createTime'	=> $object->getCreateTime(),
+						'saved'			=> $object->getAction()->isSaved(),
+						'read'			=> $object->getAction()->isRead());
 	}
 }
 ?>

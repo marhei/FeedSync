@@ -12,8 +12,7 @@
 namespace Data;
 
 class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
-	private $id, $feedID, $title, $author, $html, $url, $createTime;
-	private $isSaved = false, $isRead = false;
+	private $id, $feedID, $title, $author, $html, $url, $createTime, $action;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -27,8 +26,8 @@ class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 						'author'			=> $this->author,
 						'html'				=> $this->html,
 						'url'				=> $this->url,
-						'is_saved'			=> $this->isSaved,
-						'is_read'			=> $this->isRead,
+						'is_saved'			=> $this->action->isSaved(),
+						'is_read'			=> $this->action->isRead(),
 						'created_on_time'	=> $this->createTime);
 	}
 	
@@ -52,6 +51,9 @@ class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 		$this->html = $html;
 		$this->url = $url;
 		$this->createTime = $createTime;
+		
+		// Action-Instanz erstellen
+		$this->action = new Item\Action();
 	}
 	
 	/**
@@ -124,6 +126,15 @@ class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	**/
 	public function getCreateTime() {
 		return $this->createTime;
+	}
+	
+	/**
+	* Gibt die Aktion-Instanz zurück.
+	*
+	* @return Item\Action
+	**/
+	public function getAction() {
+		return $this->action;
 	}
 }
 ?>
