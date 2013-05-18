@@ -68,6 +68,26 @@ class Manager extends \Core\Manager {
 	}
 	
 	/**
+	* Lädt alle ungelesene Items.
+	**/
+	public function loadUnread() {
+		// Alle Objekte laden
+		$queryObject = $this->tableActions->select(array('read'=>0));
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
+	* Lädt alle gespeicherten Items.
+	**/
+	public function loadSaved() {
+		// Alle Objekte laden
+		$queryObject = $this->tableActions->select(array('saved'=>1));
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
 	* Gibt das Content-Array für ein Objekt zurück
 	*
 	* @param object $object - Das Objekt

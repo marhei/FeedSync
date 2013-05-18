@@ -42,6 +42,10 @@ class API {
 		
 		// Die Daten zurückgeben
 		new API\Data($this);
+		// Sync zur Verfügung stellen
+		new API\Sync($this);
+		// Datenänderungen aufnehmen
+		new API\Write($this);
 	}
 	
 	/**
