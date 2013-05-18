@@ -17,7 +17,7 @@
     		<th>#</th>
     		<th>Titel</th>
     		<th>Feed</th>
-    		<th>Link</th>
+    		<th>Aktuallisierung</th>
     		<th>Items</th>
     		<th>Aktionen</th>
     	</tr>
@@ -31,7 +31,7 @@
     				<?= \Core\Format::string($currentElement->getTitle()) ?>
     			</td>
     			<td><?= \Core\Format::string($currentElement->getURL()) ?></td>
-    			<td><?= \Core\Format::string($currentElement->getSiteURL()) ?></td>
+    			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false, false) ?></td>
     			<td>
     				<span class="badge">
     					<?= \Core\Format::number($currentElement->countAllItems()) ?>

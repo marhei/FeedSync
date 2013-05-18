@@ -14,9 +14,7 @@ class Main {
 	/**
 	* Entscheidet, welche Klasse geöffnet wird.
 	**/
-	public function __construct() {
-		//$this->saveDebug();
-	
+	public function __construct() {	
 		// Was wurde angefordert?
 		if(\Core\Request::GET('api',false)!==false) $this->callAPI();
 		else $this->callBackend();
@@ -26,6 +24,8 @@ class Main {
 	* Ruft die API auf.
 	**/
 	private function callAPI() {
+		// Debug-Daten speichern
+		//$this->saveDebug();
 		// Was für eine Antwort wurde angefordert?
 		new \Response\API(\Core\Request::GET('api') ?: \Response\API::JSON);
 	}

@@ -66,8 +66,18 @@ class Feeds {
 	public function deleteFeed() {
 		// Feed-ID laden
 		$feedID = \Core\Request::GET('feedID', -1);
+		// Feed laden
+		$feedObject = $this->manager->getObjectForID($feedID);
+		
 		// Löschen
 		$this->manager->removeObject($feedID);
+		// Einträge löschen
+		$this->deleteFeedItems();
+		
+		// Favicon-ID laden
+		$faviconID = $feedObject->getFavicon()->getID();
+		// Favicon löschen
+		\Data\Favicon\Manager::main()->removeObject($faviconID);
 	}
 	
 	/**

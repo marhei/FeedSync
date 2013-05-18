@@ -81,6 +81,8 @@ class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 		$feed = $this->getFeedObject();
 		// Manager auslesen
 		$manager = Item\Manager::main();
+		// Letztes Update
+		$lastUpdate = $this->lastUpdate;
 	
 		// Allem Items im RSS-Dings aulesen
 		foreach($feed->item as $currentItem) {
@@ -92,16 +94,19 @@ class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 			$createTime = strtotime((string) $currentItem->pubDate);
 			
 			// Der Artikel wurde vor dem letzten Aktuallisieren eingefügt? Abbruch!
-			if($createTime < $this->lastUpdate) continue;
+			if($createTime <= $this->lastUpdate) continue;
 			
 			// Item erstellen
 			$item = new Item($this, $title, $author, $html, $url, $createTime);
 			// Item dem Manager hinzufügen
 			$manager->addObject($item);
+			
+			// Letzte Update eintragen
+			if($createTime > $lastUpdate) $lastUpdate = $createTime;
 		}
 		
-		// Letzten Update aktuallisieren
-		$this->lastUpdate = strtotime((string) $feed->lastBuildDate);
+		// Letztes Update auch in der Klasse eintragen
+		$this->lastUpdate = $lastUpdate;
 	}
 	
 	/**
