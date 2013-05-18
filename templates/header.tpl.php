@@ -4,11 +4,9 @@
 		<title>FeedSync-Backend</title>
 		<meta charset="utf-8">
 		
-		<link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
-		<style type="text/css">
-			body {
-				font-family: 'PT Sans', sans-serif;
-			}
-		</style>
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 	<body>

@@ -15,7 +15,7 @@ class Backend {
 	const HEADER_TEMPLATE = 'header';
 	const FOOTER_TEMPLATE = 'footer';
 	
-	const DEFAULT_MODULE = 'Start';
+	const DEFAULT_MODULE = 'Feeds';
 	const MODULE_NAMESPACE = '\Response\Backend\\';
 	
 	private static $moduleVars = array();
