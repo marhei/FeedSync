@@ -15,6 +15,8 @@ class Main {
 	* Entscheidet, welche Klasse geöffnet wird.
 	**/
 	public function __construct() {
+		//$this->saveDebug();
+	
 		// Was wurde angefordert?
 		if(\Core\Request::GET('api',false)!==false) $this->callAPI();
 		else $this->callBackend();
@@ -34,6 +36,16 @@ class Main {
 	private function callBackend() {
 		// Mini-Backend zur Verfügung stellen
 		new \Response\Backend();
+	}
+	
+	/**
+	* Speichert die DEBUG-Daten.
+	**/
+	private function saveDebug() {
+		// POST-Daten speichern
+		file_put_contents('post.txt', print_r($_POST, true), FILE_APPEND);
+		// GET-Daten speichern
+		file_put_contents('get.txt', print_r($_GET, true), FILE_APPEND);
 	}
 }
 ?>

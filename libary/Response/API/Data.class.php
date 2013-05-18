@@ -93,7 +93,7 @@ class Data {
 			$this->apiInstance->addResponse('items', array_values($manager->getAllObjects()));
 		} else if(\Core\Request::issetGET('with_ids')) { // Items mit dieser ID
 			// Daten laden
-			$manager->loadIDs(explode(',', \Core\Request::GET('whith_ids')));
+			$manager->loadIDs(explode(',', \Core\Request::GET('with_ids')));
 			// Daten hinzufügen
 			$this->apiInstance->addResponse('items', array_values($manager->getAllObjects()));
 		} else { // Alle Items
