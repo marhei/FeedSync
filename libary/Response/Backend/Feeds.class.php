@@ -33,6 +33,11 @@ class Feeds {
 			if(\Core\Request::GET('deleteFeed', false)) $this->deleteFeed();
 			// Feed hinzufügen
 			if(\Core\Request::GET('addFeed', false)) $this->addFeed();
+			
+			// Item löschen
+			if(\Core\Request::GET('deleteFeedItems', false)) $this->deleteFeedItems();
+			// Gelesene Items löschen
+			if(\Core\Request::GET('deleteReadFeedItems', false)) $this->deleteReadFeedObjects();
 		} catch(\Exception $exception) {
 			\Response\Backend::setModuleVar('error', $exception->getMessage().' ('.$exception->getCode().')');
 		}
@@ -63,6 +68,32 @@ class Feeds {
 		$feedID = \Core\Request::GET('feedID', -1);
 		// Löschen
 		$this->manager->removeObject($feedID);
+	}
+	
+	/**
+	* Löscht den Inhalt eines Feeds.
+	**/
+	public function deleteFeedItems() {
+		// Feed-ID laden
+		$feedID = \Core\Request::GET('feedID', -1);
+		
+		// Manager aufrufen
+		$manager = \Data\Item\Manager::main();
+		// Item löschen
+		$manager->removeFeedObjects($feedID);
+	}
+	
+	/**
+	* Löscht den gelesenen Inhalt eines Feeds.
+	**/
+	public function deleteReadFeedObjects() {
+		// Feed-ID laden
+		$feedID = \Core\Request::GET('feedID', -1);
+		
+		// Manager aufrufen
+		$manager = \Data\Item\Manager::main();
+		// Item löschen
+		$manager->removeReadFeedObjects($feedID);
 	}
 }
 ?>

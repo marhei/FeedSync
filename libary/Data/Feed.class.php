@@ -172,5 +172,23 @@ class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	public function getLastUpdate() {
 		return $this->lastUpdate;
 	}
+	
+	/**
+	* Gibt die Anzahl der Items in diesem Feed zurück.
+	*
+	* @return int
+	**/
+	public function countAllItems() {
+		return Item\Manager::main()->countAllInFeed($this->id);
+	}
+	
+	/**
+	* Gibt die Anzahl der ungelesenen Items in diesem Feed zurück.
+	*
+	* @return int
+	**/
+	public function countUnreadItems() {
+		return Item\Manager::main()->countUnreadInFeed($this->id);
+	}
 }
 ?>

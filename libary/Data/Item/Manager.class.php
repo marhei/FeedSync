@@ -88,6 +88,66 @@ class Manager extends \Core\Manager {
 	}
 	
 	/**
+	* Zählt alle Items für einen Feed.
+	*
+	* @param int $feedID - ID des Feeds
+	* @return int
+	**/
+	public function countAllInFeed($feedID) {
+		return $this->tableActions->count(array('feedID'=>$feedID));
+	}
+	
+	/**
+	* Zählt alle Items für einen Feed.
+	*
+	* @param int $feedID - ID des Feeds
+	* @return int
+	**/
+	public function countUnreadInFeed($feedID) {
+		return $this->tableActions->count(array('feedID'=>$feedID, 'read'=>0));
+	}
+	
+	/**
+	* Löscht alle Items eines Feeds.
+	*
+	* @param int $feedID - ID des Feeds
+	**/
+	public function removeFeedObjects($feedID) {
+		// Aus der DB löschen
+		$this->tableActions->delete(array('feedID'=>$feedID));
+		
+		// Alle Elemente durchlaufen
+		foreach($this as $id => $current) {
+			// Nicht der richtige Feed
+			if($current->getFeedID() != $feedID) continue;
+			
+			// Einträge in der Klasse löschen
+			unset($this->objects[$id]);
+			unset($this->unchangedObjects[$id]);
+		}
+	}
+	
+	/**
+	* Löscht alle ungelesenen Items eines Feeds.
+	*
+	* @param int $feedID - ID des Feeds
+	**/
+	public function removeReadFeedObjects($feedID) {
+		// Aus der DB löschen
+		$this->tableActions->delete(array('feedID'=>$feedID, 'read'=>true));
+		
+		// Alle Elemente durchlaufen
+		foreach($this as $id => $current) {
+			// Nicht der richtige Feed
+			if($current->getFeedID() != $feedID || !$current->isRead()) continue;
+			
+			// Einträge in der Klasse löschen
+			unset($this->objects[$id]);
+			unset($this->unchangedObjects[$id]);
+		}
+	}
+	
+	/**
 	* Gibt das Content-Array für ein Objekt zurück
 	*
 	* @param object $object - Das Objekt
@@ -96,6 +156,7 @@ class Manager extends \Core\Manager {
 	protected function getContentArrayForObject($object) {
 		return array(	'object' 		=> serialize($object),
 						'createTime'	=> $object->getCreateTime(),
+						'feedID'		=> $object->getFeedID(),
 						'saved'			=> $object->getAction()->isSaved(),
 						'read'			=> $object->getAction()->isRead());
 	}
