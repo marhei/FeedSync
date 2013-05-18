@@ -25,7 +25,7 @@ class Main {
 	**/
 	private function callAPI() {
 		// Debug-Daten speichern
-		//$this->saveDebug();
+		if(\Config\Debug) $this->saveDebug();
 		// Was für eine Antwort wurde angefordert?
 		new \Response\API(\Core\Request::GET('api') ?: \Response\API::JSON);
 	}

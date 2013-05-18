@@ -19,6 +19,8 @@ namespace Config {
 	const VERSION = '0.7alpha';
 	// Welche API-Version spiegelt dieses Skript wider.
 	const API_VERSION = 2;
+	// Debug-Modus?
+	const DEBUG = false;
 }
 
 /**
