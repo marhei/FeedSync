@@ -12,6 +12,7 @@
 			<tr>
 				<th>#</th>
 				<th>Titel</th>
+				<th>Feed</th>
 				<th>Link</th>
 				<th>Items</th>
 				<th>Aktionen</th>
@@ -21,7 +22,11 @@
 			<? foreach(self::$moduleVars['manager'] as $currentElement): ?>
 				<tr>
 					<td><?= \Core\Format::number($currentElement->getID()) ?></td>
-					<td><?= \Core\Format::string($currentElement->getTitle()) ?></td>
+					<td>
+						<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="Favicon">
+						<?= \Core\Format::string($currentElement->getTitle()) ?>
+					</td>
+					<td><?= \Core\Format::string($currentElement->getURL()) ?></td>
 					<td><?= \Core\Format::string($currentElement->getSiteURL()) ?></td>
 					<td><span class="badge">?</span></td>
 					<td>
@@ -31,8 +36,8 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">Alle Items löschen</a></li>
-								<li><a href="#">Gelesene löschen</a></li>
+								<li><a href="#">Items löschen</a></li>
+								<li><a href="#">gelesene löschen</a></li>
 							</ul>
   						</div>
 					</td>
@@ -40,4 +45,12 @@
 			<? endforeach; ?>
 		</tbody>
 	</table>
+	
+	<form class="form-inline text-center">
+		 <div class="input-prepend">
+		 	<span class="add-on">http://</span>
+		 	<input type="text" placeholder="Feed-URL" name="feed">
+		 </div>
+		 <input class="btn" type="submit" value="Feed hinzufügen">
+	</form>
 </div>
