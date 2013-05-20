@@ -94,6 +94,18 @@ class Manager extends \Core\Manager {
 	}
 	
 	/**
+	* Lädt alle Items für einen Feed.
+	*
+	* @param int $feedID - ID des Feeds
+	**/
+	public function loadUnreadInFeed($feedID) {
+		// Objekte laden
+		$queryObject =  $this->tableActions->select(array('feedID'=>$feedID, 'read'=>0));
+		// Zu dem Manager hinzufügen
+		$this->saveInInstance($queryObject);
+	}
+	
+	/**
 	* Zählt alle Items für einen Feed.
 	*
 	* @param int $feedID - ID des Feeds

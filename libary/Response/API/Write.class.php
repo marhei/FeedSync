@@ -29,13 +29,43 @@ class Write {
 		$type = \Core\Request::POST('mark');
 		$id = \Core\Request::POST('id');
 		$as = \Core\Request::POST('as');
+		$before = \Core\Request::POST('before');
 		
 		// Was soll markiert werden?
 		switch($type) {
 			case 'item':
 				$this->markItemAs($id, $as);
 				break;
+				
+			case 'feed':
+				$this->markFeedAsRead($id, $before);
+				break;
 		}
+	}
+	
+	/**
+	* Markiert einen Feed als gelesen.
+	*
+	* @param int $feedID
+	* @param int $before
+	**/
+	private function markFeedAsRead($feedID, $before) {
+		// Items laden
+		$this->manager->loadUnreadInFeed($feedID);
+		// Array mit IDs die als gelesen markiert werden sollen
+		$ids = array();
+		
+		// Manager durchlaufen
+		foreach($this->manager as $currentItem) {
+			// Item ist bereits als gelesen markiert oder nach dem $before gekommen
+			if($currentItem->getAction()->isRead() || $currentItem->getCreateTime() > $before) continue;
+			
+			// ID dem Array hinzufügen
+			$ids[] = $currentItem->getID();
+		}
+		
+		// Array durchlaufen und als gelesen markieren
+		foreach($ids as $current) $this->markItemAs($current, 'read');
 	}
 	
 	/**
