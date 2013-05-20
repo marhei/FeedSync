@@ -34,6 +34,13 @@ class Group implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Ma
 	}
 	
 	/**
+	* Beim Klonen auch die Beziehung klonen. (Damit der Manager einen Unterschied erkennen kann.
+	**/
+	public function __clone() {
+		$this->relationship = clone $this->relationship;
+	}
+	
+	/**
 	* Erstellt eine neue Gruppe.
 	*
 	* @param string $title - Name der Gruppe.
@@ -91,6 +98,17 @@ class Group implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Ma
 	**/
 	public function getRelationship() {
 		return $this->relationship;
+	}
+	
+	/**
+	* Markiert alle Beträge der Gruppe als gelesen.
+	*
+	* @param int $before - Bevor eine bestimmten Zeit [optional]
+	**/
+	public function markAsRead($before = false) {
+		// Beziehung durchlaufen
+		foreach($this->relationship as $current)
+			$current->markAsRead($before);
 	}
 }
 ?>

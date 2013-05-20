@@ -126,7 +126,14 @@ class Feeds {
 	* Markiert alle Feeds als gelesen.
 	**/
 	private function markFeedsAsRead() {
-		throw new \Exception('Das geht leider noch nicht. :(', 2);
+		// Feed-Manager
+		$manager = \Data\Feed\Manager::main();
+		// Alle Feeds laden
+		$manager->loadAll();
+		
+		// Alle Feeds durchlaufen
+		foreach($manager as $feed)
+			$feed->markAsRead();
 	}
 }
 ?>

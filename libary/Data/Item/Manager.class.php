@@ -178,5 +178,36 @@ class Manager extends \Core\Manager {
 						'saved'			=> $object->getAction()->isSaved(),
 						'read'			=> $object->getAction()->isRead());
 	}
+	
+	/**
+	* Markiert ein Item als wasauchimmer.
+	*
+	* @param int $id
+	* @param string $as
+	**/
+	public function markItemAs($id, $as) {
+		// Item laden
+		if(!$this->existObjectForID($id)) $this->loadIDs(array($id));
+		// Item nicht vorhanden? Abbruch!
+		if(!$this->existObjectForID($id)) return;
+		// Item fetchen
+		$item = $this->getObjectForID($id);
+		
+		// Operation auswählen
+		switch($as) {
+			case 'read':
+				$item->getAction()->setRead();
+				break;
+			case 'unread':
+				$item->getAction()->setUnread();
+				break;
+			case 'saved':
+				$item->getAction()->setSaved();
+				break;
+			case 'unsaved';
+				$item->getAction()->setUnsaved();
+				break;
+		}
+	}
 }
 ?>

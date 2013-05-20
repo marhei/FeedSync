@@ -12,7 +12,7 @@
 namespace Response\API;
 
 class Write {
-	private $apiInstance, $manager;
+	private $apiInstance;
 	
 	/**
 	* Gibt der API-Datenklasse die API-Instanz mit und führt dann alles weiter aus.
@@ -22,8 +22,6 @@ class Write {
 	public function __construct(\Response\API $apiInstance) {
 		// Instanz in der Klasse speichern
 		$this->apiInstance = $apiInstance;
-		// Manager speichern
-		$this->manager = \Data\Item\Manager::main();
 		
 		// Daten auslesen
 		$type = \Core\Request::POST('mark');
@@ -34,11 +32,15 @@ class Write {
 		// Was soll markiert werden?
 		switch($type) {
 			case 'item':
-				$this->markItemAs($id, $as);
+				\Data\Item\Manager::main()->markItemAs($id, $as);
 				break;
 				
 			case 'feed':
 				$this->markFeedAsRead($id, $before);
+				break;
+				
+			case 'group':
+				$this->markGroupAsRead($id, $before);
 				break;
 		}
 	}
@@ -50,53 +52,58 @@ class Write {
 	* @param int $before
 	**/
 	private function markFeedAsRead($feedID, $before) {
-		// Items laden
-		$this->manager->loadUnreadInFeed($feedID);
-		// Array mit IDs die als gelesen markiert werden sollen
-		$ids = array();
+		// Feed-Manager
+		$manager = \Data\Feed\Manager::main();
+		// Alle Feeds laden
+		$manager->loadAll();
 		
-		// Manager durchlaufen
-		foreach($this->manager as $currentItem) {
-			// Item ist bereits als gelesen markiert oder nach dem $before gekommen
-			if($currentItem->getAction()->isRead() || $currentItem->getCreateTime() > $before) continue;
-			
-			// ID dem Array hinzufügen
-			$ids[] = $currentItem->getID();
-		}
+		// Ungültiger Feed
+		if(!$manager->existObjectForID($feedID)) return;
+		// Feed laden
+		$feed = $manager->getObjectForID($feedID);
 		
-		// Array durchlaufen und als gelesen markieren
-		foreach($ids as $current) $this->markItemAs($current, 'read');
+		// Feed als gelesen markieren
+		$feed->markAsRead($before);
 	}
 	
 	/**
-	* Markiert ein Item als wasauchimmer.
+	* Markiert eine Gruppe als gelesen.
 	*
-	* @param int $id
-	* @param string $as
+	* @param int $groupID
+	* @param int $before
 	**/
-	private function markItemAs($id, $as) {
-		// Item laden
-		$this->manager->loadIDs(array($id));
-		// Item nicht vorhanden? Abbruch!
-		if(!$this->manager->existObjectForID($id)) return;
-		// Item fetchen
-		$item = $this->manager->getObjectForID($id);
+	private function markGroupAsRead($groupID, $before) {
+		// Gruppen ID = 0?
+		if(!$groupID) return $this->markAllAsRead($before);
+	
+		// Feed-Manager
+		$manager = \Data\Group\Manager::main();
+		// Alle Feeds laden
+		$manager->loadAll();
 		
-		// Operation auswählen
-		switch($as) {
-			case 'read':
-				$item->getAction()->setRead();
-				break;
-			case 'unread':
-				$item->getAction()->setUnread();
-				break;
-			case 'saved':
-				$item->getAction()->setSaved();
-				break;
-			case 'unsaved';
-				$item->getAction()->setUnsaved();
-				break;
-		}
+		// Ungültiger Feed
+		if(!$manager->existObjectForID($feedID)) return;
+		// Feed laden
+		$group = $manager->getObjectForID($feedID);
+		
+		// Feed als gelesen markieren
+		$group->markAsRead($before);
+	}
+	
+	/**
+	* Markiert alle als gelesen.
+	*
+	* @param int $before
+	**/
+	private function markAllAsRead($before) {
+		// Feed-Manager
+		$manager = \Data\Feed\Manager::main();
+		// Alle Feeds laden
+		$manager->loadAll();
+		
+		// Alle Feeds durchlaufen
+		foreach($manager as $feed)
+			$feed->markAsRead($before);
 	}
 }
 ?>

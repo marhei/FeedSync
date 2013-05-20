@@ -11,7 +11,7 @@
 **/
 namespace Data\Group;
 
-class Relationship implements \JsonSerializable {
+class Relationship implements \JsonSerializable, \Countable, \IteratorAggregate {
 	private $id, $feeds = array();
 	
 	/**
@@ -65,6 +65,47 @@ class Relationship implements \JsonSerializable {
 		$arrayIndex = array_search($id, $this->feeds);
 		// Aus dem Array löschen
 		unset($this->feeds[$arrayIndex]);
+	}
+	
+	/**
+	* Gibt die Anzahl der Objekte zurück.
+	*
+	* @return int
+	**/
+	public function count() {
+		return count($this->feeds);
+	}
+	
+	/**
+	* Gibt die Iterator-Instanz zurück.
+	*
+	* @return \ArrayIterator
+	**/
+	public function getIterator() {
+		// Manager laden
+		$manager = \Data\Feed\Manager::main();
+		// Alles laden
+		$manager->loadAll();
+		
+		// Feed-Array
+		$feedArray = array();
+		$feeds = $this->feeds
+		// IDs durchlaufen
+		foreach($feeds as $key => $currentID) {
+			// Ungüliter Feed
+			if(!$manager->existsObjectForID($currentID)) {
+				// Aus der Beziehung löschen
+				unset($this->feeds[$key]);
+				// Schleife fortfahren
+				continue;
+			}
+			
+			// Objekt dem Array hinzufügen
+			$feedArray[] = $manager->getObjectForID($currentID);
+		}
+	
+		// Zurückgeben
+		return new \ArrayIterator($feedArray);
 	}
 }
 ?>

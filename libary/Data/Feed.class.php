@@ -204,5 +204,31 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	public function countUnreadItems() {
 		return Item\Manager::main()->countUnreadInFeed($this->id);
 	}
+	
+	/**
+	* Markiert alle Beträge des Feeds als gelesen.
+	*
+	* @param int $before - Bevor eine bestimmten Zeit [optional]
+	**/
+	public function markAsRead($before = false) {
+		// Manager
+		$manager = Item\Manager::main();
+		// Items laden
+		$manager->loadUnreadInFeed($this->id);
+		// Array mit IDs die als gelesen markiert werden sollen
+		$ids = array();
+		
+		// Manager durchlaufen
+		foreach($manager as $currentItem) {
+			// Item ist bereits als gelesen markiert oder nach dem $before gekommen
+			if($currentItem->getAction()->isRead() || ($currentItem->getCreateTime() > $before && $before)) continue;
+			
+			// ID dem Array hinzufügen
+			$ids[] = $currentItem->getID();
+		}
+		
+		// Array durchlaufen und als gelesen markieren
+		foreach($ids as $current) $manager->markItemAs($current, 'read');
+	}
 }
 ?>
