@@ -52,16 +52,13 @@ class API {
 	* Gibt den Inhalt des Response-Arrays als JSON aus.
 	**/
 	public function __destruct() {
-		// JSON-Antwort erwünscht?
-		if($this->responseType == self::JSON) {
-			// Neue Instanz der JSON-Klasse
-			$json = new \Core\JSON($this->response);
-			// Ausgabe
-			echo $json;
-		} else if($this->responseType == self::XML) { // XML-Antwort?
-			// Derzeit ist noch keine XML-Antwort möglich
-			throw new \Exception('Derzeit ist noch keine Antwort im XML-Format möglich. Es tut uns leid.', 1);
-		}
+		if($this->responseType == self::JSON) // JSON-Antwort erwünscht?
+			$output = new \Core\JSON($this->response);
+		else if($this->responseType == self::XML) // XML-Antwort?
+			$output = new \Core\XML($this->response, 'response');
+		
+		// Ausgabe
+		echo $output;
 	}
 	
 	/**

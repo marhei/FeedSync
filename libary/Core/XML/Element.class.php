@@ -9,9 +9,9 @@
 * @author Marcel Heisinger
 * @package McF Framework
 **/
-namespace Core;
+namespace Core\XML;
 
-class XMLElement extends \SimpleXMLElement {
+class Element extends \SimpleXMLElement {
 	/**
 	* Erstellt ein Element aus dem Inhalt der angebenen Datei.
 	*

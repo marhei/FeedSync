@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Group implements \Core\JSON\Serializable, \Core\Manager\Indentable {
+class Group implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
 	private $id, $title, $relationship;
 	
 	/**
@@ -22,6 +22,15 @@ class Group implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	public function jsonSerialize() {
 		return array(	'id'	=> $this->id,
 						'title'	=> $this->title);
+	}
+	
+	/**
+	* Gibt die selben Rückgabewerte wie für den JSON-Wert.
+	*
+	* @return array
+	**/
+	public function xmlSerialize() {
+		return $this->jsonSerialize();
 	}
 	
 	/**

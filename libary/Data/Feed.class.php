@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
+class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
 	private $id, $faviconID, $title, $url, $siteURL, $lastUpdate;
 	
 	/**
@@ -27,6 +27,15 @@ class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 						'site_url'				=> $this->siteURL,
 						'is_spark'				=> false,
 						'last_updated_on_time'	=> $this->lastUpdate);
+	}
+	
+	/**
+	* Gibt die selben Rückgabewerte wie für den JSON-Wert.
+	*
+	* @return array
+	**/
+	public function xmlSerialize() {
+		return $this->jsonSerialize();
 	}
 	
 	/**
@@ -58,7 +67,7 @@ class Feed implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	**/
 	private function getFeedObject() {
 		// Den Feed öffnen
-		return \Core\XMLElement::loadFile($this->url)->channel[0];
+		return \Core\XML\Element::loadFile($this->url)->channel[0];
 	}
 	
 	/**

@@ -11,7 +11,7 @@
 **/
 namespace Data;
 
-class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
+class Item implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
 	private $id, $feedID, $title, $author, $html, $url, $createTime, $action;
 	
 	/**
@@ -29,6 +29,15 @@ class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 						'is_saved'			=> $this->action->isSaved(),
 						'is_read'			=> $this->action->isRead(),
 						'created_on_time'	=> $this->createTime);
+	}
+	
+	/**
+	* Gibt die selben Rückgabewerte wie für den JSON-Wert.
+	*
+	* @return array
+	**/
+	public function xmlSerialize() {
+		return $this->jsonSerialize();
 	}
 	
 	/**
