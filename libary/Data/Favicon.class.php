@@ -3,7 +3,7 @@
 * Das Icon eines Feeds. Verwendet den Google-S2-Service.
 *
 * @copyright Copyright 2013 Marcel Heisinger
-* @link https://github.com/FeedSync/FeedSync
+* @link https://github.com/marhei/FeedSync
 * @date 2013-05-10
 * @license Apache License v2 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 * @author Marcel Heisinger

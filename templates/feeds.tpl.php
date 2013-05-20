@@ -41,11 +41,13 @@
     			</td>
     			<td>
     				<div class="btn-group">
-    					<button class="btn btn-mini btn-danger" onclick="location.href='index.php?deleteFeed=true&feedID=<?= $currentElement->getID() ?>'">Löschen</button>
+    					<a class="btn btn-mini btn-danger" href="index.php?deleteFeed=true&feedID=<?= $currentElement->getID() ?>">
+    						<i class="icon-trash icon-white"></i>
+    					</a>
     					<button class="btn btn-mini btn-danger dropdown-toggle" data-toggle="dropdown">
     						<span class="caret"></span>
     					</button>
-    					<ul class="dropdown-menu">
+    					<ul class="dropdown-menu pull-right">
     						<li><a href="index.php?deleteFeedItems=true&feedID=<?= $currentElement->getID() ?>">Nur Items</a></li>
     						<li><a href="index.php?deleteReadFeedItems=true&feedID=<?= $currentElement->getID() ?>">Nur gelesene Items</a></li>
     					</ul>
@@ -55,7 +57,7 @@
     	<? endforeach; ?>
     	<? if(!count(self::$moduleVars['manager'])): ?>
     		<tr>
-    			<td colspan="6" style="text-align:center!important;">
+    			<td colspan="6" class="text-center">
     				Es wurde noch keine RSS-Feeds hinzugefügt.
     			</td>
     		</tr>

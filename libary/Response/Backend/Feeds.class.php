@@ -3,7 +3,7 @@
 * Feeds-Module für das Backend.
 *
 * @copyright Copyright 2013 Marcel Heisinger
-* @link https://github.com/FeedSync/FeedSync
+* @link https://github.com/marhei/FeedSync
 * @date 2013-05-12
 * @license Apache License v2 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 * @author Marcel Heisinger
@@ -20,6 +20,9 @@ class Feeds {
 	public function __construct() {
 		// Template definieren
 		\Response\Backend::setModuleVar('template', 'feeds');
+		// Seitenoptionen hinzufügen
+		\Response\Backend::setModuleVar('siteOptions', array(	'index.php?refreshFeeds=true'		=> 'Feeds neuladen',
+																'index.php?markFeedsAsRead=true'	=> 'Feeds als gelesen markieren'));
 		
 		// Manager laden
 		$this->manager = \Data\Feed\Manager::main();
@@ -38,15 +41,20 @@ class Feeds {
 			if(\Core\Request::GET('deleteFeedItems', false)) $this->deleteFeedItems();
 			// Gelesene Items löschen
 			if(\Core\Request::GET('deleteReadFeedItems', false)) $this->deleteReadFeedObjects();
+			
+			// Feeds neuladen
+			if(\Core\Request::GET('refreshFeeds', false)) $this->refreshFeeds();
+			// Feeds als gelesen markieren
+			if(\Core\Request::GET('markFeedsAsRead', false)) $this->markFeedsAsRead();
 		} catch(\Exception $exception) {
-			\Response\Backend::setModuleVar('error', $exception->getMessage().' ('.$exception->getCode().')');
+			\Response\Backend::setModuleVar('error', $exception->getMessage());
 		}
 	}
 	
 	/**
 	* Fügt einen Feed hinzu.
 	**/
-	public function addFeed() {
+	private function addFeed() {
 		try {
 			// Feed-URL laden
 			$feedURL = 'http://'.\Core\Request::POST('feedURL');
@@ -63,7 +71,7 @@ class Feeds {
 	/**
 	* Löscht einen Feed.
 	**/
-	public function deleteFeed() {
+	private function deleteFeed() {
 		// Feed-ID laden
 		$feedID = \Core\Request::GET('feedID', -1);
 		// Feed laden
@@ -83,7 +91,7 @@ class Feeds {
 	/**
 	* Löscht den Inhalt eines Feeds.
 	**/
-	public function deleteFeedItems() {
+	private function deleteFeedItems() {
 		// Feed-ID laden
 		$feedID = \Core\Request::GET('feedID', -1);
 		
@@ -96,7 +104,7 @@ class Feeds {
 	/**
 	* Löscht den gelesenen Inhalt eines Feeds.
 	**/
-	public function deleteReadFeedObjects() {
+	private function deleteReadFeedObjects() {
 		// Feed-ID laden
 		$feedID = \Core\Request::GET('feedID', -1);
 		
@@ -104,6 +112,21 @@ class Feeds {
 		$manager = \Data\Item\Manager::main();
 		// Item löschen
 		$manager->removeReadFeedObjects($feedID);
+	}
+	
+	/**
+	* Lädt alle Items neu.
+	**/
+	private function refreshFeeds() {
+		// Alle RSS-Feeds abgleichen
+		\Data\Feed\Manager::main()->updateAllItemLists();
+	}
+	
+	/**
+	* Markiert alle Feeds als gelesen.
+	**/
+	private function markFeedsAsRead() {
+		throw new \Exception('Das geht leider noch nicht. :(', 2);
 	}
 }
 ?>

@@ -3,7 +3,7 @@
 * Stellt ein Mini-Backend für die Funktionen, die über die API nicht möglich sind, zur Verfügung
 *
 * @copyright Copyright 2013 Marcel Heisinger
-* @link https://github.com/FeedSync/FeedSync
+* @link https://github.com/marhei/FeedSync
 * @date 2013-05-08
 * @license Apache License v2 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 * @author Marcel Heisinger
@@ -30,6 +30,15 @@ class Backend {
 		// Varibale setzen
 		self::$moduleVars[$key] = $value;
 	}
+	
+	/**
+	* Gibt den Namen des Moduls zurück.
+	*
+	* @return string
+	**/
+	public static function getModuleName() {
+		return \Core\Request::GET('module', self::DEFAULT_MODULE);
+	}
 
 	/**
 	* Fügt eine HTTP-Authentifizierung hinzu.
@@ -52,7 +61,7 @@ class Backend {
 	**/
 	private function openRequestedModule() {
 		// Welches Modul wurde angefordert?
-		$module = \Core\Request::GET('module', self::DEFAULT_MODULE);
+		$module = self::getModuleName();
 		// Einen Klassennamen daraus bauen
 		$moduleClass = self::MODULE_NAMESPACE.$module;
 		

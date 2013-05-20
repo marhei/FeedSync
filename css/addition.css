@@ -1,0 +1,27 @@
+/**
+* Fügt einige zusätzliche Optionen dem CSS hinzu.
+* Behebt einiges unerwünschtes Verhalten von Bootstrap.
+*
+* @copyright Copyright 2013 Marcel Heisinger
+* @link https://github.com/marhei/FeedSync
+* @date 2013-05-20
+* @license Apache License v2 (http://www.apache.org/licenses/LICENSE-2.0.txt)
+* @author Marcel Heisinger
+* @package FeedSync
+**/
+
+.text-center {
+	text-align: center!important;
+}
+
+.text-left {
+	text-align: left!important;
+}
+
+.text-right {
+	text-align: right!important;
+}
+
+.dropdown-menu {
+	background-color: rgba(255, 255, 255, 0.95);
+}
