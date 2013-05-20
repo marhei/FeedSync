@@ -52,11 +52,17 @@ class Manager extends \Core\Manager {
 	* @param array $id
 	**/
 	public function loadIDs(array $ids) {
+		// Nur IDs laden, die noch nicht geladen wurden.
+		$loadIDs = array();
+		foreach($ids as $current) {
+			if(!$this->existObjectForID($current)) $loadIDs[] = $current;
+		}
+	
 		$whereString = '';
 		$more = '';
 		
 		// Alle IDs durchlaufen
-		foreach($ids as $current) {
+		foreach($loadIDs as $current) {
 			$whereString .= $more.'id = '.\Core\MySQL::main()->quoteString($current);
 			$more = ' OR ';
 		}

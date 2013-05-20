@@ -32,6 +32,13 @@ class Item implements \Core\JSON\Serializable, \Core\Manager\Indentable {
 	}
 	
 	/**
+	* Beim Klonen auch das Actiondings klonen. (Damit der Manager einen Unterschied erkennen kann.
+	**/
+	public function __clone() {
+		$this->action = clone $this->action;
+	}
+	
+	/**
 	* Erzeugt ein neues Item.
 	*
 	* @param \Data\Feed $feed

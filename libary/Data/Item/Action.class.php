@@ -52,5 +52,12 @@ class Action {
 	public function setRead() {
 		$this->read = true;
 	}
+	
+	/**
+	* Setzt das Item als ungelesen.
+	**/
+	public function setUnread() {
+		$this->read = false;
+	}
 }
 ?>
