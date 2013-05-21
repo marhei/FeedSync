@@ -36,6 +36,8 @@ class Feeds {
 			if(\Core\Request::GET('deleteFeed', false)) $this->deleteFeed();
 			// Feed hinzufügen
 			if(\Core\Request::GET('addFeed', false)) $this->addFeed();
+			// OPML-Dateien importieren
+			if(\Core\Request::GET('importOPML', false)) $this->importOPML();
 			
 			// Item löschen
 			if(\Core\Request::GET('deleteFeedItems', false)) $this->deleteFeedItems();
@@ -49,6 +51,20 @@ class Feeds {
 		} catch(\Exception $exception) {
 			\Response\Backend::setModuleVar('error', $exception->getMessage());
 		}
+	}
+	
+	/**
+	* Importiert eine OPML-Datei.
+	**/
+	private function importOPML() {
+		// Datei fetchen
+		$opmlFile = \Core\Request::File('opmlFile');
+		// Keine Datei hochgeladen?
+		if(is_null($opmlFile) || $opmlFile['error'] == UPLOAD_ERR_NO_FILE)
+			throw new \Exception('Es wurde keine OPML-Datei zum Importieren ausgewählt.', 2);
+		
+		// Dem Manager hinzufügen
+		$this->manager->addObjectsFromOPML($opmlFile['tmp_name']);
 	}
 	
 	/**

@@ -59,5 +59,47 @@ class Manager extends \Core\Manager {
 		foreach($this as $current)
 			$current->updateItemList();
 	}
+	
+	/**
+	* Fügt Feeds aus einer OPML-Datei hinzu.
+	*
+	* @param string $path - Pfad zur OPML-Datei
+	**/
+	public function addObjectsFromOPML($path) {
+		// OPML-Datei einlesen
+		$opml = \Core\XML\Element::loadFile($path);
+		
+		// Elemente durchlaufen
+		foreach($opml->body->outline as $current) {
+			// XML-URL laden
+			$xmlURL = (string) $current['xmlUrl'];
+			// Bereits vorhanden?
+			if($this->existObjectForRSS($xmlURL)) continue;
+			
+			// Feed-Objekte erstellen
+			$feed = new \Data\Feed($xmlURL);
+			// Feed dem Manager hinzufügen
+			$this->addObject($feed);
+		}
+	}
+	
+	/**
+	* Überprüft, ob eine Feed mit der angegeben URL exisitert.
+	*
+	* @param string $url
+	* @return bool
+	**/
+	public function existObjectForRSS($url) {
+		// Alle Feeds laden
+		$this->loadAll();
+		
+		// Feed durchlaufen
+		foreach($this as $current) {
+			if($current->getURL() == $url) return true;
+		}
+		
+		// Kein Feed vorhanden
+		return false;
+	}
 }
 ?>

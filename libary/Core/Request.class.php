@@ -55,5 +55,27 @@ class Request {
 	public static function issetGET($key) {
 		return isset($_GET[$key]);
 	}
+	
+	/**
+	* Element aus den mitgeschickten FILE-Daten laden.
+	*
+	* @param string $key - Der Key
+	* @param mixed $default - Standardwert [optional]
+	* @return mixed
+	**/
+	public static function FILE($key, $default=NULL) {
+		// Wenn Key vorhanden zurückgeben, sonst Standardwert
+		return isset($_FILES[$key]) ? $_FILES[$key] : $default;
+	}
+	
+	/**
+	* Gibt zurück, ob ein FILE-Element gesetzt ist.
+	*
+	* @param string $key
+	* @return bool
+	**/
+	public static function issetFILE($key) {
+		return isset($_FILES[$key]);
+	}
 }
 ?>

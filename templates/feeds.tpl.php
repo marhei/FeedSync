@@ -70,5 +70,40 @@
      	<span class="add-on">http://</span>
      	<input type="text" placeholder="Feed-URL" name="feedURL">
      </div>
-     <input class="btn" type="submit" value="Feed hinzufügen">
+     <div class="btn-group">
+    	<input class="btn" type="submit" value="Feed hinzufügen">
+    	<button class="btn dropdown-toggle" data-toggle="dropdown">
+    		<span class="caret"></span>
+    	</button>
+    	<ul class="dropdown-menu pull-right">
+    		<li><a href="#uploadModal" data-toggle="modal">OPML-Datei importieren…</a></li>
+    	</ul>
+     </div>
+</form>
+
+<form method="post" action="index.php?importOPML=true" enctype="multipart/form-data">
+<div id="uploadModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">OPML-Datei importieren…</h3>
+	</div>
+		
+	<div class="modal-body">
+	    <p>
+	    	Wähle eine OPML-Datei aus, damit die enthaltenen Feeds automatisch importiert werden können.
+	    	Feeds die bereits in FeedSync vorhanden sind werden kein zweites Mal erstellt.
+	    </p>
+	    <p>
+	    	<input type="file" name="opmlFile">
+	    </p>
+	    <p>
+	    	Das Einfügen der Daten aus der OPML-Datei kann einen Moment dauern.
+	    </p>
+	</div>
+	
+	<div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Abbrechen</button>
+	    <button class="btn btn-primary">Importieren</button>
+	</div>
+	</div>
 </form>
