@@ -66,8 +66,12 @@ class Manager extends \Core\Manager {
 	* @param string $path - Pfad zur OPML-Datei
 	**/
 	public function addObjectsFromOPML($path) {
-		// OPML-Datei einlesen
-		$opml = \Core\XML\Element::loadFile($path);
+		try { 
+			// OPML-Datei einlesen
+			$opml = \Core\XML\Element::loadFile($path);
+		} catch(\Core\XML\Exception $exception) {
+			throw new \Exception('Es wurde keine gültige OPML-Datei gesendet.', 1, $exception);
+		}
 		
 		// Elemente durchlaufen
 		foreach($opml->body->outline as $current) {

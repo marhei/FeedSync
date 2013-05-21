@@ -22,7 +22,7 @@ class Element extends \SimpleXMLElement {
 		try {
 			return simplexml_load_file($filename, __CLASS__);
 		} catch (\Exception $exception) {
-			throw new \Exception('Die angeforderte XML-Datei konnte nicht geladen werden.', 1, $exception);
+			throw new Exception('Die angeforderte XML-Datei konnte nicht geladen werden.', 1, $exception);
 		}
 	}
 
