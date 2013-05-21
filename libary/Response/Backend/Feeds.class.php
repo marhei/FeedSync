@@ -21,7 +21,7 @@ class Feeds {
 		// Template definieren
 		\Response\Backend::setModuleVar('template', 'feeds');
 		// Seitenoptionen hinzufügen
-		\Response\Backend::setModuleVar('siteOptions', array(	'index.php?refreshFeeds=true'		=> 'Feeds neuladen',
+		\Response\Backend::setModuleVar('siteOptions', array(	'index.php?refresh'					=> 'Feeds neuladen',
 																'index.php?markFeedsAsRead=true'	=> 'Feeds als gelesen markieren'));
 		
 		// Manager laden
@@ -112,14 +112,6 @@ class Feeds {
 		$manager = \Data\Item\Manager::main();
 		// Item löschen
 		$manager->removeReadFeedObjects($feedID);
-	}
-	
-	/**
-	* Lädt alle Items neu.
-	**/
-	private function refreshFeeds() {
-		// Alle RSS-Feeds abgleichen
-		\Data\Feed\Manager::main()->updateAllItemLists();
 	}
 	
 	/**

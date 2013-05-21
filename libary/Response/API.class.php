@@ -37,9 +37,6 @@ class API {
 		// Die Version von FeedSync hinzufügen
 		$this->response['feedsync_version'] = \Config\VERSION;
 		
-		// Alle RSS-Feeds abgleichen
-		\Data\Feed\Manager::main()->updateAllItemLists();
-		
 		// Die Daten zurückgeben
 		new API\Data($this);
 		// Sync zur Verfügung stellen

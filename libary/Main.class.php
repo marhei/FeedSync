@@ -15,8 +15,11 @@ class Main {
 	* Entscheidet, welche Klasse geöffnet wird.
 	**/
 	public function __construct() {	
+		// Soll neugeladen werden?
+		if(\Core\Request::issetGET('refresh')) $this->refresh();
+	
 		// Was wurde angefordert?
-		if(\Core\Request::GET('api',false)!==false) $this->callAPI();
+		if(\Core\Request::issetGET('api')) $this->callAPI();
 		else $this->callBackend();
 	}
 	
@@ -36,6 +39,14 @@ class Main {
 	private function callBackend() {
 		// Mini-Backend zur Verfügung stellen
 		new \Response\Backend();
+	}
+	
+	/**
+	* Aktuallisiert die RSS-Feeds.
+	**/
+	private function refresh() {
+		// Alle RSS-Feeds abgleichen
+		\Data\Feed\Manager::main()->updateAllItemLists();
 	}
 	
 	/**
