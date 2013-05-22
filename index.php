@@ -13,10 +13,11 @@
 /**
 * Wichtige Konstanten
 **/
-define('ROOT_PATH', __DIR__.'/');
-define('LIBARY_PATH', ROOT_PATH.'lib/');
-define('TEMPLATE_PATH', ROOT_PATH.'tpl/');
-define('CONFIG_PATH', ROOT_PATH.'config.inc.php');
+define('ROOT_PATH',		__DIR__		.'/');
+define('LIBARY_PATH', 	ROOT_PATH	.'lib/');
+define('TEMPLATE_PATH', ROOT_PATH	.'tpl/');
+define('LANGUAGE_PATH', ROOT_PATH	.'lang/');
+define('CONFIG_PATH', 	ROOT_PATH	.'config.inc.php');
 
 /**
 * Fehlerbehandlung
