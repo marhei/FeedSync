@@ -17,7 +17,7 @@ Das Skript ist mit allein Apps, die „Fever“ als Syncmöglichkeit anbieten ko
 ### Einschränkungen
 Es gibt einige Funktionen von Fever die durch FeedSync bewusst nicht unterstützt werden. Dazu gehört vor allem Hot Links, aber auch die „Sparks“- und die „Kindling“-Supergruppe.
 
-Wir möchten Fever nicht nachbauen, wir verwenden lediglich eine API die breits von einigen Apps unterstützt wird.
+Wir möchten Fever nicht nachbauen, wir verwenden lediglich eine API die bereits von einigen Apps unterstützt wird.
 
 ### Installation
 Derzeit gibt es für die Installation noch keine grafische Unterstützung. Die Installation ist jedoch trotzdem ziemlich einfach.

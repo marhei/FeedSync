@@ -75,6 +75,9 @@ class Manager extends \Core\Manager {
 		
 		// Elemente durchlaufen
 		foreach($opml->body->outline as $current) {
+			// Gar kein RSS?
+			if((string)$current['type'] != 'rss') continue;
+		
 			// XML-URL laden
 			$xmlURL = (string) $current['xmlUrl'];
 			// Bereits vorhanden?
