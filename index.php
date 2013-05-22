@@ -14,8 +14,8 @@
 * Wichtige Konstanten
 **/
 define('ROOT_PATH', __DIR__.'/');
-define('LIBARY_PATH', ROOT_PATH.'libary/');
-define('TEMPLATE_PATH', ROOT_PATH.'templates/');
+define('LIBARY_PATH', ROOT_PATH.'lib/');
+define('TEMPLATE_PATH', ROOT_PATH.'tpl/');
 define('CONFIG_PATH', ROOT_PATH.'config.inc.php');
 
 /**
