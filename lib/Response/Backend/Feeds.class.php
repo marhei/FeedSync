@@ -21,8 +21,8 @@ class Feeds {
 		// Template definieren
 		\Response\Backend::setModuleVar('template', 'feeds');
 		// Seitenoptionen hinzufügen
-		\Response\Backend::setModuleVar('siteOptions', array(	'index.php?refresh'					=> 'Feeds neuladen',
-																'index.php?markFeedsAsRead=true'	=> 'Feeds als gelesen markieren'));
+		\Response\Backend::setModuleVar('siteOptions', array(	'index.php?refresh'					=> \Core\Language::main()->get('feeds', 'refreshFeeds'),
+																'index.php?markFeedsAsRead=true'	=> \Core\Language::main()->get('feeds', 'markFeedsAsRead')));
 		
 		// Manager laden
 		$this->manager = \Data\Feed\Manager::main();
@@ -61,10 +61,14 @@ class Feeds {
 		$opmlFile = \Core\Request::File('opmlFile');
 		// Keine Datei hochgeladen?
 		if(is_null($opmlFile) || $opmlFile['error'] == UPLOAD_ERR_NO_FILE)
-			throw new \Exception('Es wurde keine OPML-Datei zum Importieren ausgewählt.', 2);
+			throw new \Exception(\Core\Language::main()->get('feeds', 'errorNoOPML'), 2);
 		
-		// Dem Manager hinzufügen
-		$this->manager->addObjectsFromOPML($opmlFile['tmp_name']);
+		try {
+			// Dem Manager hinzufügen
+			$this->manager->addObjectsFromOPML($opmlFile['tmp_name']);
+		} catch(\Exception $exception) {
+			throw new \Exception(\Core\Language::main()->get('feeds', 'errorInvalidOPML'), 3, $exception);
+		}
 	}
 	
 	/**
@@ -80,7 +84,7 @@ class Feeds {
 			// Feed-Objekt dem Manager hinzufügen
 			$this->manager->addObject($feedObject);
 		} catch(\Exception $exception) {
-			throw new \Exception('Der Feed konnte nicht hinzugefügt werden. Eventuell ist das kein gültiger Feed.', 1, $exception);
+			throw new \Exception(\Core\Language::main()->get('feeds', 'errorInvalidFeed'), 1, $exception);
 		}
 	}
 	

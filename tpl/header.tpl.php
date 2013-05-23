@@ -25,9 +25,9 @@
 								<? endforeach; ?>
 								<li class="divider"></li>
 							<? endif; ?>
-							<li><a href="index.php?module=<?= self::getModuleName() ?>">Seite neuladen</a></li>
+							<li><a href="index.php?module=<?= self::getModuleName() ?>"><?= \Core\Language::main()->get('header', 'refreshPage') ?></a></li>
 						</ul>
 					</div>
 				</div>
-				<h1>FeedSync <small>Syncdienst für RSS-Clients</small></h1>
+				<h1>FeedSync <small><?= \Core\Language::main()->get('header', 'titleAddition') ?></small></h1>
 			</div>

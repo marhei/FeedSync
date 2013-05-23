@@ -67,7 +67,7 @@ class Language {
 		$content = $this->content[$group][$object];
 		
 		// Argumente bilden
-		$args = array($content) + $formatArgs;
+		$args = array_merge(array($content), $formatArgs);
 		// sprintf aufrufen
 		return call_user_func_array('sprintf', $args);
 	}

@@ -1,12 +1,8 @@
-
-<p>
-    Willkommen auf dem FeedSync-Backend. Da FeedSync lediglich ein Syncdienst mit API ist, hast du hier nicht die Möglichkeit, den Inhalt deiner Feeds zu beobachten.
-    Du kannst hier neue Feeds hinzufügen oder alte löschen. Weitere Funktionen, zum Beispiel zum Sortieren von Feeds in Gruppen, kommen in spätere Versionen.
-</p>
+<p><?= \Core\Language::main()->get('feeds', 'intro') ?></p>
 
 <? if(isset(self::$moduleVars['error'])): ?>
     <div class="alert alert-error">
-    	<strong>Verdammt!</strong>
+    	<strong><?= \Core\Language::main()->get('feeds', 'errorIntro') ?></strong>
     	<?= \Core\Format::string(self::$moduleVars['error']) ?>
     </div>
 <? endif; ?>
@@ -14,12 +10,12 @@
 <table class="table table-striped">
     <thead>
     	<tr>
-    		<th>#</th>
-    		<th>Titel</th>
-    		<th>Feed</th>
-    		<th>Aktuallisierung</th>
-    		<th>Items</th>
-    		<th>Aktionen</th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableID') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableTitle') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableFeed') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableRefresh') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableItems') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableActions') ?></th>
     	</tr>
     </thead>
     <tbody>
@@ -27,18 +23,14 @@
     		<tr>
     			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
     			<td>
-    				<a href="<?= \Core\Format::string($currentElement->getSiteURL()) ?>" title="Webseite besuchen">
-    					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="Favicon">
+    				<a href="<?= \Core\Format::string($currentElement->getSiteURL()) ?>" title="<?= \Core\Language::main()->get('feeds', 'visitWebsite') ?>">
+    					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="<?= \Core\Language::main()->get('feeds', 'favicon') ?>">
 						<?= \Core\Format::string($currentElement->getTitle()) ?>
     				</a>
     			</td>
     			<td><?= \Core\Format::string($currentElement->getURL()) ?></td>
-    			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false, false) ?></td>
-    			<td>
-    				<span class="badge" title="davon <?= \Core\Format::number($currentElement->countUnreadItems()) ?> ungelesen">
-    					<?= \Core\Format::number($currentElement->countAllItems()) ?>
-    				</span>
-    			</td>
+    			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false) ?></td>
+    			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
     				<div class="btn-group">
     					<a class="btn btn-mini btn-danger" href="index.php?deleteFeed=true&feedID=<?= $currentElement->getID() ?>">
@@ -48,8 +40,16 @@
     						<span class="caret"></span>
     					</button>
     					<ul class="dropdown-menu pull-right">
-    						<li><a href="index.php?deleteFeedItems=true&feedID=<?= $currentElement->getID() ?>">Nur Items</a></li>
-    						<li><a href="index.php?deleteReadFeedItems=true&feedID=<?= $currentElement->getID() ?>">Nur gelesene Items</a></li>
+    						<li>
+    							<a href="index.php?deleteFeedItems=true&feedID=<?= $currentElement->getID() ?>">
+    								<?= \Core\Language::main()->get('feeds', 'deleteOnlyItems') ?>
+								</a>
+							</li>
+    						<li>
+    							<a href="index.php?deleteReadFeedItems=true&feedID=<?= $currentElement->getID() ?>">
+									<?= \Core\Language::main()->get('feeds', 'deleteOnlyReadItems') ?>
+    							</a>
+    						</li>
     					</ul>
     				</div>
     			</td>
@@ -58,7 +58,7 @@
     	<? if(!count(self::$moduleVars['manager'])): ?>
     		<tr>
     			<td colspan="6" class="text-center">
-    				Es wurde noch keine RSS-Feeds hinzugefügt.
+    				<?= \Core\Language::main()->get('feeds', 'noFeeds') ?>
     			</td>
     		</tr>
     	<? endif; ?>
@@ -68,15 +68,15 @@
 <form class="form-inline text-center" action="index.php?addFeed=true" method="post">
      <div class="input-prepend">
      	<span class="add-on">http://</span>
-     	<input type="text" placeholder="Feed-URL" name="feedURL">
+     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>" name="feedURL">
      </div>
      <div class="btn-group">
-    	<input class="btn" type="submit" value="Feed hinzufügen">
+    	<input class="btn" type="submit" value="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>">
     	<button class="btn dropdown-toggle" data-toggle="dropdown">
     		<span class="caret"></span>
     	</button>
     	<ul class="dropdown-menu pull-right">
-    		<li><a href="#uploadModal" data-toggle="modal">OPML-Datei importieren…</a></li>
+    		<li><a href="#uploadModal" data-toggle="modal"><?= \Core\Language::main()->get('feeds', 'importOPML') ?></a></li>
     	</ul>
      </div>
 </form>
@@ -85,25 +85,20 @@
 <div id="uploadModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel">OPML-Datei importieren…</h3>
+		<h3 id="myModalLabel"><?= \Core\Language::main()->get('feeds', 'importOPML') ?></h3>
 	</div>
 		
 	<div class="modal-body">
-	    <p>
-	    	Wähle eine OPML-Datei aus, damit die enthaltenen Feeds automatisch importiert werden können.
-	    	Feeds die bereits in FeedSync vorhanden sind werden kein zweites Mal erstellt.
-	    </p>
+	    <p><?= \Core\Language::main()->get('feeds', 'introOPML') ?></p>
 	    <p>
 	    	<input type="file" name="opmlFile">
 	    </p>
-	    <p>
-	    	Das Einfügen der Daten aus der OPML-Datei kann einen Moment dauern.
-	    </p>
+	    <p><?= \Core\Language::main()->get('feeds', 'outroOPML') ?></p>
 	</div>
 	
 	<div class="modal-footer">
-	    <button class="btn" data-dismiss="modal" aria-hidden="true">Abbrechen</button>
-	    <button class="btn btn-primary">Importieren</button>
+	    <button class="btn" data-dismiss="modal" aria-hidden="true"><?= \Core\Language::main()->get('feeds', 'cancel') ?></button>
+	    <button class="btn btn-primary"><?= \Core\Language::main()->get('feeds', 'import') ?></button>
 	</div>
 	</div>
 </form>

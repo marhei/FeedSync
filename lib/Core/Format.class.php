@@ -30,7 +30,7 @@ class Format {
 	* @param bool $passed
 	* @return string
 	*/
-	public static function date($time, $withSecs = false, $passed = true, $long = false) {
+	public static function date($time, $passed = true) {
 		// Gestriges Datum herausfinden
 		$date = explode('.', date('Y.m.d', time()-86400));
 		// Gestriges Timestamp berechnen
@@ -41,23 +41,25 @@ class Format {
 		// Morgiger Timestamp berechnen
 		$tomorrowTime = mktime(0,0,0,$date[1], $date[2], $date[0]);
 
-		$dateString = date('d.m.'.($long ? 'Y' : ''), $time);
-		if($withSecs) $timeString = date('H:i:s', $time);
-		else $timeString = date('H:i', $time);
+		// Datumsstring
+		$dateString = date(\Core\Language::main()->get('date', 'dateFormat'), $time);
+		// Zeitstring
+		$timeString = date(\Core\Language::main()->get('date', 'timeFormat'), $time);
 
 		// Unbekannt?
-		if($time == 0) return 'unbekannt';
+		if(!$time) return \Core\Language::main()->get('date', 'unknown');
 
 		// Schon vorbei?
-		if($time < time() && $passed) return 'Zeit schon abgelaufen';
+		if($time < time() && $passed) return \Core\Language::main()->get('date', 'passed');
 
 		// Heute?
-		if($time < $tomorrowTime && $yesterdayTime + 86400 < $time) return 'heute, '.($long?'um ':'').$timeString.' Uhr';
+		if($time < $tomorrowTime && $yesterdayTime + 86400 < $time)
+			$dateString = \Core\Language::main()->get('date', 'today');
+		else if($time < $tomorrowTime + 86400 && $time > time()) // Morgen?
+			$dateString = \Core\Language::main()->get('date', 'tomorrow');
 
-		// Morgen?
-		if($time < $tomorrowTime + 86400 && $time > time()) return 'morgen, '.($long?'um ':'').$timeString.' Uhr';
-
-		return 'am '.$dateString.', '.($long?'um ':'').$timeString.' Uhr';
+		// String zurückgeben
+		return \Core\Language::main()->get('date', 'string', array($dateString, $timeString));
 	}
 
 	/**
@@ -70,7 +72,10 @@ class Format {
  	public static function number($number,$decimals=0) {
  		$pre = $number > 0 && round($number, 2) == 0 ? '>' : '';
 
-		return $pre.number_format($number, $decimals, ',', '.');
+		return $pre.number_format(	$number,
+									$decimals,
+									\Core\Language::main()->get('number', 'decimalPoint'),
+									\Core\Language::main()->get('number', 'digitPoint'));
 	}
 	
 	/**
