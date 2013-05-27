@@ -74,6 +74,16 @@ class Relationship implements \Core\JSON\Serializable, \Core\XML\Serializable, \
 	}
 	
 	/**
+	* Setzt alle Feeds und überschreibt die alte Einstellungen.
+	*
+	* @param array $feeds
+	**/
+	public function setFeedIDs(array $feeds) {
+		// Aktuelle Feeds ersetzen
+		$this->feeds = $feeds;
+	}
+	
+	/**
 	* Löscht einen Feed aus dem Array.
 	*
 	* @param int $id
@@ -86,6 +96,16 @@ class Relationship implements \Core\JSON\Serializable, \Core\XML\Serializable, \
 		$arrayIndex = array_search($id, $this->feeds);
 		// Aus dem Array löschen
 		unset($this->feeds[$arrayIndex]);
+	}
+	
+	/**
+	* Gibt zurück, ob der Feed mit dieser ID in der Beziehung ist.
+	*
+	* @param int $feedID
+	* @return bool
+	**/
+	public function existFeed($feedID) {
+		return in_array($feedID, $this->feeds);
 	}
 	
 	/**

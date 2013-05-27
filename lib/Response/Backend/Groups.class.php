@@ -40,6 +40,9 @@ class Groups {
 			if(\Core\Request::GET('deleteGroup', false)) $this->deleteGroup();
 			// Gruppe hinzufügen
 			if(\Core\Request::GET('addGroup', false)) $this->addGroup();
+			
+			// Gruppenbeziehungen speichern
+			if(\Core\Request::GET('changeGroups', false)) $this->changeGroups();
 		} catch(\Exception $exception) {
 			\Response\Backend::setModuleVar('error', $exception->getMessage());
 		}
@@ -66,6 +69,23 @@ class Groups {
 		$groupID = \Core\Request::GET('groupID', -1);		
 		// Löschen
 		$this->manager->removeObject($groupID);
+	}
+	
+	/**
+	* Ändert die Gruppenbeziehungen
+	**/
+	private function changeGroups() {
+		// Neue Beziehungen laden
+		$groupRelationships = \Core\Request::POST('groupRelationships', array());
+		
+		// Alle Gruppen durchlaufen
+		foreach($this->manager as $id => $currentGroup) {
+			// Gruppe nicht vorhanden?
+			if(!isset($groupRelationships[$id])) continue;
+			
+			// Neue Beziehungen setzen
+			$currentGroup->getRelationship()->setFeedIDs($groupRelationships[$id]);
+		}
 	}
 }
 ?>
