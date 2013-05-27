@@ -27,6 +27,38 @@ class Groups {
 		$this->manager->loadAll();
 		// Manager dem Modul hinzufügen
 		\Response\Backend::setModuleVar('manager', $this->manager);
+		
+		try {
+			// Gruppe löschen
+			if(\Core\Request::GET('deleteGroup', false)) $this->deleteGroup();
+			// Gruppe hinzufügen
+			if(\Core\Request::GET('addGroup', false)) $this->addGroup();
+		} catch(\Exception $exception) {
+			\Response\Backend::setModuleVar('error', $exception->getMessage());
+		}
+	}
+	
+	/**
+	* Fügt eine Gruppe hinzu.
+	**/
+	private function addGroup() {
+		// Gruppenname laden
+		$groupName = \Core\Request::POST('groupName');
+		// Feed-Objekt erstellen
+		$groupObject = new \Data\Group($groupName);
+			
+		// Feed-Objekt dem Manager hinzufügen
+		$this->manager->addObject($groupObject);
+	}
+	
+	/**
+	* Löscht eine Gruppe.
+	**/
+	private function deleteGroup() {
+		// Gruppen-ID laden
+		$groupID = \Core\Request::GET('groupID', -1);		
+		// Löschen
+		$this->manager->removeObject($groupID);
 	}
 }
 ?>

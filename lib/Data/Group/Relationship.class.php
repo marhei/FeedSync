@@ -11,7 +11,7 @@
 **/
 namespace Data\Group;
 
-class Relationship implements \JsonSerializable, \Countable, \IteratorAggregate {
+class Relationship implements \Core\JSON\Serializable, \Core\XML\Serializable, \Countable, \IteratorAggregate {
 	private $id, $feeds = array();
 	
 	/**
@@ -22,6 +22,15 @@ class Relationship implements \JsonSerializable, \Countable, \IteratorAggregate 
 	public function jsonSerialize() {
 		return array(	'group_id'	=> $this->id,
 						'feed_ids'	=> implode(',', $this->feeds));
+	}
+	
+	/**
+	* Gibt die selben Rückgabewerte wie für den JSON-Wert.
+	*
+	* @return array
+	**/
+	public function xmlSerialize() {
+		return $this->jsonSerialize();
 	}
 	
 	/**
@@ -89,7 +98,7 @@ class Relationship implements \JsonSerializable, \Countable, \IteratorAggregate 
 		
 		// Feed-Array
 		$feedArray = array();
-		$feeds = $this->feeds
+		$feeds = $this->feeds;
 		// IDs durchlaufen
 		foreach($feeds as $key => $currentID) {
 			// Ungüliter Feed
