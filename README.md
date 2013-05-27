@@ -10,6 +10,7 @@ PHP-Programm, das ohne Webinterface zum Syncen von Fever-kompatiblen RSS-Readern
 - PHP 5.3 mit installierter JSON-Erweiterung
 - mindestens 32 MiB Arbeitsspeicher für PHP
 - MySQL in einer aktuellen Version
+- Einen modernen Browser für das Backend
 
 ### Kompatibilität
 Das Skript ist mit allein Apps, die „Fever“ als Syncmöglichkeit anbieten kompatibel.Dazu gehören um Beispiel:
