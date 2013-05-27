@@ -49,10 +49,17 @@ class API {
 	* Gibt den Inhalt des Response-Arrays als JSON aus.
 	**/
 	public function __destruct() {
-		if($this->responseType == self::JSON) // JSON-Antwort erwünscht?
+		if($this->responseType == self::JSON) { // JSON-Antwort erwünscht?
+			// Entsprechenden Header senden
+			\Core\Header::main()->setContentType('application/json');
+			// JSON-Daten zurückgeben
 			$output = new \Core\JSON($this->response);
-		else if($this->responseType == self::XML) // XML-Antwort?
+		} else if($this->responseType == self::XML) { // XML-Antwort?
+			// Entsprechenden Header senden
+			\Core\Header::main()->setContentType('application/xml');
+			// XML-Daten zurückgeben
 			$output = new \Core\XML($this->response, 'response');
+		}
 		
 		// Ausgabe
 		echo $output;

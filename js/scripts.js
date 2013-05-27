@@ -7,7 +7,7 @@ function changeGroupName(spanElement) {
 	$(spanElement).removeAttr('onclick');
 	
 	// Neues Feld setzen
-	$(spanElement).html('<input onblur="saveGroupName()" id="groupNameInput" value="'+currentName+'">');
+	$(spanElement).html('<form action="javascript:saveGroupName()"><input onblur="saveGroupName()" id="groupNameInput" value="'+currentName+'"></form>');
 	// Fokosieren
 	$('#groupNameInput').focus();
 }
@@ -20,7 +20,7 @@ function saveGroupName() {
 	var encodedNewName = encodeURIComponent(newName);
 	
 	// Überelement ermitteln
-	var spanElement = $('#groupNameInput').parent();
+	var spanElement = $('#groupNameInput').parent().parent();
 	// Gruppen-ID ermitteln
 	var groupID = $(spanElement).attr('data-group-id');
 	
