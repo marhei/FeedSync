@@ -12,7 +12,7 @@
 namespace Response\Backend;
 
 class Groups {
-	private $manager;
+	private $manager, $feedManager;
 
 	/**
 	* Konstruktor, der definiert, das ein Template aufgerufen werden soll.
@@ -23,10 +23,17 @@ class Groups {
 		
 		// Manager laden
 		$this->manager = \Data\Group\Manager::main();
-		// Alle Feeds laden
+		// Alle Gruppen laden
 		$this->manager->loadAll();
 		// Manager dem Modul hinzufügen
 		\Response\Backend::setModuleVar('manager', $this->manager);
+		
+		// Feed-Manager laden
+		$this->feedManager = \Data\Feed\Manager::main();
+		// Alle Feeds laden
+		$this->feedManager->loadAll();
+		// Manager dem Modul hinzufügen
+		\Response\Backend::setModuleVar('feedManager', $this->feedManager);
 		
 		try {
 			// Gruppe löschen

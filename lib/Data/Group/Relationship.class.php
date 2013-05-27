@@ -62,6 +62,18 @@ class Relationship implements \Core\JSON\Serializable, \Core\XML\Serializable, \
 	}
 	
 	/**
+	* Setzt alle Feeds und überschreibt die alte Einstellungen.
+	*
+	* @param array $feeds
+	**/
+	public function setFeeds(array $feeds) {
+		// Aktuelle Feeds löschen
+		$this->feeds = array();
+		// Feeds setzen
+		foreach($feeds as $currentFeed) $this->addFeed($currentFeed);
+	}
+	
+	/**
 	* Löscht einen Feed aus dem Array.
 	*
 	* @param int $id

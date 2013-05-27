@@ -3,7 +3,9 @@
     	<tr>
     		<th><?= \Core\Language::main()->get('groups', 'tableID') ?></th>
     		<th><?= \Core\Language::main()->get('groups', 'tableName') ?></th>
-    		<th><?= \Core\Language::main()->get('groups', 'tableFeeds') ?></th>
+    		<th>
+    			<?= \Core\Language::main()->get('groups', 'tableFeeds') ?>
+    		</th>
     		<th><?= \Core\Language::main()->get('groups', 'tableActions') ?></th>
     	</tr>
     </thead>
@@ -12,7 +14,13 @@
     		<tr>
     			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
     			<td><?= \Core\Format::string($currentElement->getTitle()) ?></td>
-    			<td></td>
+    			<td>
+	    			<select multiple="multiple" style="width: 350px;">
+	    				<? foreach(self::$moduleVars['feedManager'] as $currentFeed): ?>
+	    					<option value="<?= $currentFeed->getID() ?>"><?= \Core\Format::string($currentFeed->getTitle()) ?></option>
+	    				<? endforeach; ?>
+	    			</select>
+    			</td>
     			<td>
 	    			<a class="btn btn-mini btn-danger" href="<?= self::cml(array('deleteGroup'=>true, 'groupID'=>$currentElement->getID())) ?>">
     					<i class="icon-trash icon-white"></i> Löschen
