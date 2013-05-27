@@ -95,23 +95,27 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	
 		// Allem Items im RSS-Dings aulesen
 		foreach($feed->item as $currentItem) {
-			// Daten auslesen
-			$title = (string) $currentItem->title;
-			$html = (string) $currentItem->description;
-			$author = (string) $currentItem->author;
-			$url = (string) $currentItem->link;
-			$createTime = strtotime((string) $currentItem->pubDate);
+			try {
+				// Daten auslesen
+				$title = (string) $currentItem->title;
+				$html = (string) $currentItem->description;
+				$author = (string) $currentItem->author;
+				$url = (string) $currentItem->link;
+				$createTime = strtotime((string) $currentItem->pubDate);
 			
-			// Der Artikel wurde vor dem letzten Aktuallisieren eingefügt? Abbruch!
-			if($createTime <= $this->lastUpdate) continue;
+				// Der Artikel wurde vor dem letzten Aktuallisieren eingefügt? Abbruch!
+				if($createTime <= $this->lastUpdate) continue;
 			
-			// Item erstellen
-			$item = new Item($this, $title, $author, $html, $url, $createTime);
-			// Item dem Manager hinzufügen
-			$manager->addObject($item);
+				// Item erstellen
+				$item = new Item($this, $title, $author, $html, $url, $createTime);
+				// Item dem Manager hinzufügen
+				$manager->addObject($item);
 			
-			// Letzte Update eintragen
-			if($createTime > $lastUpdate) $lastUpdate = $createTime;
+				// Letzte Update eintragen
+				if($createTime > $lastUpdate) $lastUpdate = $createTime;
+			} catch(\Exception $exception) {
+				// Fehler im RSS-Eintrag? Keine weitere Reaktion!
+			}
 		}
 		
 		// Letztes Update auch in der Klasse eintragen
