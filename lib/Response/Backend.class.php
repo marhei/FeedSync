@@ -19,6 +19,7 @@ class Backend {
 	const MODULE_NAMESPACE = '\Response\Backend\\';
 	
 	private static $moduleVars = array();
+	private static $backendModules = array('Feeds', 'Groups');
 	
 	/**
 	* Eine Module-Variable setzen.
@@ -38,6 +39,30 @@ class Backend {
 	**/
 	public static function getModuleName() {
 		return \Core\Request::GET('module', self::DEFAULT_MODULE);
+	}
+	
+	/**
+	* Macht einen Modul-Link.
+	*
+	* @param array $options - Optionen [optional]
+	* @param string $module - Welches Module? [optional]
+	* @return string
+	**/
+	public static function createModuleLink(array $options = array(), $module = NULL) {
+		// Module ermitteln
+		$module = $module ?: self::getModuleName();
+		// Der Modul-Name die URL einfügen
+		$url = 'index.php?module='.$module;
+		
+		// Optionen anhängen
+		foreach($options as $key => $currentOption)
+			$url .= '&'.$key.'='.urlencode($currentOption);
+		
+		return $url;
+	}
+	// Alias
+	public static function cml(array $options = array(), $module = NULL) {
+		return self::createModuleLink($options, $module);
 	}
 
 	/**

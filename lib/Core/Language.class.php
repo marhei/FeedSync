@@ -69,7 +69,7 @@ class Language {
 		// Argumente bilden
 		$args = array_merge(array($content), $formatArgs);
 		// sprintf aufrufen
-		return call_user_func_array('sprintf', $args);
+		return Format::string(call_user_func_array('sprintf', $args));
 	}
 }
 ?>

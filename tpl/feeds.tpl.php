@@ -1,5 +1,3 @@
-<p><?= \Core\Language::main()->get('feeds', 'intro') ?></p>
-
 <? if(isset(self::$moduleVars['error'])): ?>
     <div class="alert alert-error">
     	<strong><?= \Core\Language::main()->get('feeds', 'errorIntro') ?></strong>
@@ -33,7 +31,7 @@
     			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
     				<div class="btn-group">
-    					<a class="btn btn-mini btn-danger" href="index.php?deleteFeed=true&feedID=<?= $currentElement->getID() ?>">
+    					<a class="btn btn-mini btn-danger" href="<?= self::cml(array('deleteFeed'=>true, 'feedID'=>$currentElement->getID())) ?>">
     						<i class="icon-trash icon-white"></i>
     					</a>
     					<button class="btn btn-mini btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -41,12 +39,12 @@
     					</button>
     					<ul class="dropdown-menu pull-right">
     						<li>
-    							<a href="index.php?deleteFeedItems=true&feedID=<?= $currentElement->getID() ?>">
+    							<a href="<?= self::cml(array('deleteFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
     								<?= \Core\Language::main()->get('feeds', 'deleteOnlyItems') ?>
 								</a>
 							</li>
     						<li>
-    							<a href="index.php?deleteReadFeedItems=true&feedID=<?= $currentElement->getID() ?>">
+    							<a href="<?= self::cml(array('deleteReadFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
 									<?= \Core\Language::main()->get('feeds', 'deleteOnlyReadItems') ?>
     							</a>
     						</li>
@@ -65,7 +63,7 @@
     </tbody>
 </table>
 
-<form class="form-inline text-center" action="index.php?addFeed=true" method="post">
+<form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post">
      <div class="input-prepend">
      	<span class="add-on">http://</span>
      	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>" name="feedURL">
@@ -81,7 +79,7 @@
      </div>
 </form>
 
-<form method="post" action="index.php?importOPML=true" enctype="multipart/form-data">
+<form method="post" action="<?= self::cml(array('importOPML'=>true)) ?>" enctype="multipart/form-data">
 <div id="uploadModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

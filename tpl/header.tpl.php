@@ -9,7 +9,7 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		
-		<!-- Eigenen CSS -->
+		<!-- Eigenes CSS -->
 		<link href="css/addition.min.css" rel="stylesheet" media="screen">
 	</head>
 	<body>
@@ -21,13 +21,23 @@
 						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
 							<? if(isset(self::$moduleVars['siteOptions'])): ?>
 								<? foreach(self::$moduleVars['siteOptions'] as $link => $name): ?>
-									<li><a href="<?= \Core\Format::string($link) ?>"><?= \Core\Format::string($name) ?></a></li>
+									<li><a href="<?= $link ?>"><?= \Core\Format::string($name) ?></a></li>
 								<? endforeach; ?>
 								<li class="divider"></li>
 							<? endif; ?>
-							<li><a href="index.php?module=<?= self::getModuleName() ?>"><?= \Core\Language::main()->get('header', 'refreshPage') ?></a></li>
+							<li><a href="<?= self::cml() ?>"><?= \Core\Language::main()->get('header', 'refreshPage') ?></a></li>
 						</ul>
 					</div>
 				</div>
 				<h1>FeedSync <small><?= \Core\Language::main()->get('header', 'titleAddition') ?></small></h1>
 			</div>
+			
+			<p><?= \Core\Language::main()->get('header', 'intro') ?></p>
+			
+			<ul class="nav nav-tabs">
+				<? foreach(self::$backendModules as $currentModule): ?>
+					<li <? if($currentModule == self::getModuleName()): ?> class="active" <? endif; ?>>
+						<a href="<?= self::cml(array(), $currentModule) ?>"><?= \Core\Language::main()->get('backendModules',$currentModule) ?></a>
+					</li>
+				<? endforeach; ?>
+			</ul>
