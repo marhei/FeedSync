@@ -18,7 +18,7 @@ namespace Config {
 	// Sprache der Oberfläche
 	const LANGUAGE = 'de';
 	// Versionsnummer des Skripts
-	const VERSION = '0.9beta';
+	const VERSION = '0.9.5beta';
 	// Welche API-Version spiegelt dieses Skript wider.
 	const API_VERSION = 3;
 	// Debug-Modus?
