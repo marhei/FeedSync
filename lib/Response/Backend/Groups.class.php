@@ -41,6 +41,8 @@ class Groups {
 			// Gruppe hinzufügen
 			if(\Core\Request::GET('addGroup', false)) $this->addGroup();
 			
+			// Gruppenname ändern
+			if(\Core\Request::GET('changeGroupName', false)) $this->changeGroupName();
 			// Gruppenbeziehungen speichern
 			if(\Core\Request::GET('changeGroups', false)) $this->changeGroups();
 		} catch(\Exception $exception) {
@@ -54,9 +56,11 @@ class Groups {
 	private function addGroup() {
 		// Gruppenname laden
 		$groupName = \Core\Request::POST('groupName');
+		// Leere Name? Abbruch!
+		if(empty($groupName)) return;
+		
 		// Feed-Objekt erstellen
 		$groupObject = new \Data\Group($groupName);
-			
 		// Feed-Objekt dem Manager hinzufügen
 		$this->manager->addObject($groupObject);
 	}
@@ -86,6 +90,24 @@ class Groups {
 			// Neue Beziehungen setzen
 			$currentGroup->getRelationship()->setFeedIDs($groupRelationships[$id]);
 		}
+	}
+	
+	/**
+	* Ändert den Gruppenname
+	**/
+	private function changeGroupName() {
+		// Gruppen-ID laden
+		$groupID = \Core\Request::GET('groupID', -1);
+		// Gruppenname laden
+		$groupName = \Core\Request::GET('newName');
+		
+		// Leere Name? Abbruch!
+		if(empty($groupName)) return;
+		
+		// Gruppe laden
+		$grouoObject = $this->manager->getObjectForID($groupID);
+		// Name speichern
+		$grouoObject->setTitle($groupName);
 	}
 }
 ?>

@@ -7,7 +7,7 @@
 	    		<th>
 	    			<?= \Core\Language::main()->get('groups', 'tableFeeds') ?>
 	    			<button id="submitButton" class="btn btn-mini btn-primary pull-right" disabled="disabled" onclick="$(this).submit()">
-	    				<i class="icon-hdd icon-white"></i> Feedauswahl speichern 
+	    				<i class="icon-hdd icon-white"></i> <?= \Core\Language::main()->get('groups', 'updateFeeds') ?>
 	    			</button>
 	    		</th>
 	    		<th><?= \Core\Language::main()->get('feeds', 'tableActions') ?></th>
@@ -17,7 +17,11 @@
 	    	<? foreach(self::$moduleVars['manager'] as $currentElement): ?>
 	    		<tr>
 	    			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
-	    			<td><?= \Core\Format::string($currentElement->getTitle()) ?></td>
+	    			<td>
+	    				<span onclick="changeGroupName(this)"
+	    					title="Klicken um den Namen zu ändern!"
+	    					data-group-id="<?= $currentElement->getID() ?>"><?= \Core\Format::string($currentElement->getTitle()) ?></span>
+	    			</td>
 	    			<td>
 		    			<select multiple="multiple" style="width: 400px;" onchange="$('#submitButton').removeAttr('disabled')" name="groupRelationships[<?= $currentElement->getID() ?>][]">
 		    				<? foreach(self::$moduleVars['feedManager'] as $currentFeed): ?>
@@ -31,7 +35,7 @@
 	    			</td>
 	    			<td>
 		    			<a class="btn btn-mini btn-danger" href="<?= self::cml(array('deleteGroup'=>true, 'groupID'=>$currentElement->getID())) ?>">
-	    					<i class="icon-trash icon-white"></i> Löschen
+	    					<i class="icon-trash icon-white"></i> <?= \Core\Language::main()->get('groups', 'delete') ?>
 	    				</a>
 	    			</td>
 	    		</tr>

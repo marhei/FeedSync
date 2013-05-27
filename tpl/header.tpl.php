@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?= \Config\LANGUAGE ?>">
 	<head>
 		<title>FeedSync</title>
 		<meta charset="utf-8">
 		
-		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		
-		<!-- Eigenes CSS -->
 		<link href="css/addition.min.css" rel="stylesheet" media="screen">
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>	
+		<script src="js/scripts.js"></script>
+		
+		<script>
+			// URL speichern
+			var saveGroupNameURL = '<?= self::cml(array('changeGroupName'=>true), 'Groups') ?>';
+		</script>
 	</head>
 	<body>
 		<div class="container">
