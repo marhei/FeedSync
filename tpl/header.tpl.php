@@ -41,3 +41,10 @@
 					</li>
 				<? endforeach; ?>
 			</ul>
+			
+			<? if(isset(self::$moduleVars['error'])): ?>
+				<div class="alert alert-error">
+					<strong><?= \Core\Language::main()->get('header', 'errorIntro') ?></strong>
+					<?= \Core\Format::string(self::$moduleVars['error']) ?>
+				</div>
+			<? endif; ?>

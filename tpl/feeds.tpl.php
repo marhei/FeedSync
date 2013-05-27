@@ -1,10 +1,3 @@
-<? if(isset(self::$moduleVars['error'])): ?>
-    <div class="alert alert-error">
-    	<strong><?= \Core\Language::main()->get('feeds', 'errorIntro') ?></strong>
-    	<?= \Core\Format::string(self::$moduleVars['error']) ?>
-    </div>
-<? endif; ?>
-
 <table class="table table-striped">
     <thead>
     	<tr>
@@ -66,7 +59,7 @@
 <form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post">
      <div class="input-prepend">
      	<span class="add-on">http://</span>
-     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>" name="feedURL">
+     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL">
      </div>
      <div class="btn-group">
     	<input class="btn" type="submit" value="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>">
