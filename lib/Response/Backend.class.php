@@ -73,7 +73,7 @@ class Backend {
 		$header = \Core\Header::main();
 		
 		// Eine Authentifzierung hinzufügen
-		$header->addAuthentication(	'Du musst dich mit deiner E-Mail-Adresse und deinem Passwort einloggen.',
+		$header->addAuthentication(	\Core\Language::main()->get('auth', 'realm'),
 									array(\Config\User\MAIL),
 									array(\Config\User\PASSWORD));
 									
