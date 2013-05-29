@@ -14,13 +14,11 @@ class Main {
 	/**
 	* Entscheidet, welche Klasse geöffnet wird.
 	**/
-	public function __construct() {	
-		// Soll neugeladen werden?
-		if(\Core\Request::issetGET('refresh')) $this->refresh();
-	
+	public function __construct() {		
 		// Was wurde angefordert?
-		if(\Core\Request::issetGET('api')) $this->callAPI();
-		else $this->callBackend();
+		if(\Core\Request::issetGET('api')) $this->callAPI(); // API
+		else if(\Core\Request::issetGET('refresh')) $this->refresh(); // Refresh
+		else $this->callBackend(); // Backend
 	}
 	
 	/**

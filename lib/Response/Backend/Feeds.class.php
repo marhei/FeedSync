@@ -22,8 +22,8 @@ class Feeds {
 		\Response\Backend::setModuleVar('template', 'feeds');
 		// Seitenoptionen hinzufügen
 		\Response\Backend::setModuleVar('siteOptions',
-										array(	\Response\Backend::cml(array('refresh'=>''))			=> \Core\Language::main()->get('feeds', 'refreshFeeds'),
-												\Response\Backend::cml(array('markFeedsAsRead'=>true))	=> \Core\Language::main()->get('feeds', 'markFeedsAsRead')));
+										array(	'javascript:refreshFeeds()'		=> \Core\Language::main()->get('feeds', 'refreshFeeds'),
+												'javascript:markFeedsAsRead()'	=> \Core\Language::main()->get('feeds', 'markFeedsAsRead')));
 		
 		// Manager laden
 		$this->manager = \Data\Feed\Manager::main();

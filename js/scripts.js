@@ -41,5 +41,38 @@ function saveGroupName() {
 	$(spanElement).text(newName);
 	
 	// Ajax anfrage senden
-	$.ajax(saveGroupNameURL+'&groupID='+groupID+'&newName='+encodedNewName);
+	ajaxRequest(saveGroupNameURL+'&groupID='+groupID+'&newName='+encodedNewName);
+}
+
+// Neuladen der Feeds
+function refreshFeeds() {	
+	// Ajax-Request anfangen
+	ajaxRequest(refreshURL, function() {
+		// Seite neuladen
+		location.reload();
+	});
+}
+
+// Alle Feeds als gelesen markieren
+function markFeedsAsRead() {
+	ajaxRequest(markFeedsAsReadURL);
+}
+
+// Ajax-Request mit Progressbar
+function ajaxRequest(url) {
+	// Callback
+	if(arguments.length > 1) callback = arguments[1];
+	else callback = function() {};
+
+	// Progressbar anzeigen
+	$('#progress-bar').css('display', 'block');
+	
+	// Ajaxrequest senden
+	$.ajax(url).done(function() {
+		// Progressbar ausblenden
+		$('#progress-bar').css('display', 'none');
+		
+		// Eigene Callbackmethode
+		callback();
+	});
 }
