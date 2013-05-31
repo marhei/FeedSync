@@ -14,8 +14,9 @@
 		<script>
 			// URLs speichern
 			var saveGroupNameURL = '<?= self::cml(array('changeGroupName'=>true), 'Groups') ?>';
-			var markFeedsAsReadURL = '<?= \Response\Backend::cml(array('markFeedsAsRead'=>true), 'Feeds') ?>';
+			var markFeedsAsReadURL = '<?= self::cml(array('markFeedsAsRead'=>true), 'Feeds') ?>';
 			var refreshURL = 'index.php?refresh';
+			var reloadURL = '<?= self::cml() ?>'
 		</script>
 	</head>
 	<body>
@@ -31,7 +32,7 @@
 								<? endforeach; ?>
 								<li class="divider"></li>
 							<? endif; ?>
-							<li><a href="<?= self::cml() ?>"><?= \Core\Language::main()->get('header', 'refreshPage') ?></a></li>
+							<li><a href="javascript:reloadPage()"><?= \Core\Language::main()->get('header', 'refreshPage') ?></a></li>
 						</ul>
 					</div>
 				</div>

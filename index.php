@@ -20,6 +20,11 @@ define('LANGUAGE_PATH', ROOT_PATH	.'lang/');
 define('CONFIG_PATH', 	ROOT_PATH	.'config.inc.php');
 
 /**
+* Timeout deaktivieren
+**/
+set_time_limit(0);
+
+/**
 * Fehlerbehandlung
 **/
 set_error_handler(function($errorNo, $errorString, $errorFile, $errorLine) {

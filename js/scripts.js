@@ -48,8 +48,7 @@ function saveGroupName() {
 function refreshFeeds() {	
 	// Ajax-Request anfangen
 	ajaxRequest(refreshURL, function() {
-		// Seite neuladen
-		location.reload();
+		reloadPage();
 	});
 }
 
@@ -75,4 +74,10 @@ function ajaxRequest(url) {
 		// Eigene Callbackmethode
 		callback();
 	});
+}
+
+// Seite neuladen
+function reloadPage() {
+	// Seite neuladen
+	window.location.href = reloadURL;
 }

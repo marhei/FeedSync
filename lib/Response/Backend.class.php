@@ -87,6 +87,8 @@ class Backend {
 	private function openRequestedModule() {
 		// Welches Modul wurde angefordert?
 		$module = self::getModuleName();
+		// _ durch \ ersetzen
+		$module = str_replace('_', '\\', $module);
 		// Einen Klassennamen daraus bauen
 		$moduleClass = self::MODULE_NAMESPACE.$module;
 		

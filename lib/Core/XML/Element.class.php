@@ -13,6 +13,20 @@ namespace Core\XML;
 
 class Element extends \SimpleXMLElement {
 	/**
+	* Erstellt ein Element aus dem Inhalt der angegeben URL.
+	*
+	* @param \Core\Header\Request $request
+	* @return self
+	**/
+	public static function loadURL(\Core\Header\Request $request) {
+		try {
+			return simplexml_load_string($request->getContent(), __CLASS__);
+		} catch (\Exception $exception) { print_r($exception);
+			throw new Exception('Die angeforderte XML-Datei konnte nicht geladen werden.', 1, $exception);
+		}
+	}
+
+	/**
 	* Erstellt ein Element aus dem Inhalt der angebenen Datei.
 	*
 	* @param string $filename - Dateiname

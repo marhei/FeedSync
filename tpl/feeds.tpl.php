@@ -15,11 +15,11 @@
     			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
     			<td>
     				<a href="<?= \Core\Format::string($currentElement->getSiteURL()) ?>" title="<?= \Core\Language::main()->get('feeds', 'visitWebsite') ?>">
-    					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="<?= \Core\Language::main()->get('feeds', 'favicon') ?>">
+    					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="<?= \Core\Language::main()->get('feeds', 'favicon') ?>" width="16" height="16">
 						<?= \Core\Format::string($currentElement->getTitle()) ?>
     				</a>
     			</td>
-    			<td><?= \Core\Format::string($currentElement->getURL()) ?></td>
+    			<td><?= \Core\Format::string($currentElement->getRequest()->getURL()) ?></td>
     			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false) ?></td>
     			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
@@ -59,7 +59,7 @@
 <form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post">
      <div class="input-prepend">
      	<span class="add-on">http://</span>
-     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL">
+     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL" id="feedURL">
      </div>
      <div class="btn-group">
     	<input class="btn" type="submit" value="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>">

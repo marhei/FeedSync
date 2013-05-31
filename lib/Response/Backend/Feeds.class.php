@@ -79,8 +79,11 @@ class Feeds {
 		try {
 			// Feed-URL laden
 			$feedURL = 'http://'.\Core\Request::POST('feedURL');
+			// Request hinzufügen
+			$request = new \Core\Header\Request($feedURL);
+			
 			// Feed-Objekt erstellen
-			$feedObject = new \Data\Feed($feedURL);
+			$feedObject = new \Data\Feed($request);
 			
 			// Feed-Objekt dem Manager hinzufügen
 			$this->manager->addObject($feedObject);

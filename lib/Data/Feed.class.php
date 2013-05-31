@@ -12,7 +12,7 @@
 namespace Data;
 
 class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
-	private $id, $faviconID, $title, $url, $siteURL, $lastUpdate;
+	private $id, $faviconID, $title, $request, $siteURL, $lastUpdate;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -23,7 +23,7 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 		return array(	'id'					=> $this->id,
 						'favicon_id'			=> $this->faviconID,
 						'title'					=> $this->title,
-						'url'					=> $this->url,
+						'url'					=> $this->request->getURL(),
 						'site_url'				=> $this->siteURL,
 						'is_spark'				=> false,
 						'last_updated_on_time'	=> $this->lastUpdate);
@@ -41,11 +41,11 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	/**
 	* Erstellt einen neuen Feed.
 	*
-	* @param string $url - URL des Feeds
+	* @param \Core\Header\Request $request - URL des Feeds
 	**/
-	public function __construct($url) {
+	public function __construct(\Core\Header\Request $request) {
 		// Die URL des Feeds speichern
-		$this->url = $url;
+		$this->request = $request;
 		
 		// Feeddaten laden
 		$this->updateFeedInformation();
@@ -67,7 +67,7 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	**/
 	private function getFeedObject() {
 		// Den Feed öffnen
-		return \Core\XML\Element::loadFile($this->url)->channel[0];
+		return \Core\XML\Element::loadURL($this->request)->channel[0];
 	}
 	
 	/**
@@ -169,8 +169,8 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	*
 	* @return string
 	**/
-	public function getURL() {
-		return $this->url;
+	public function getRequest() {
+		return $this->request;
 	}
 	
 	/**
