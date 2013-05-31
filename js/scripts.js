@@ -57,6 +57,34 @@ function markFeedsAsRead() {
 	ajaxRequest(markFeedsAsReadURL);
 }
 
+// Checkt in den Inhalt des Feed-URL-Feelds
+function parseFeedURL() {
+	// Inhalt des Feed-URL-Felds
+	var feedURL = $('#feedURL').val();
+	
+	// HTTPS?
+	if(feedURL.indexOf('https:') == 0) {
+		// Add-on ändern
+		$('#feedURLAddon').text('https://');
+		// Inputfeld setzen
+		$('#httpsInput').val(1);
+		
+		// Protokoll entfernen
+		var feedURL = feedURL.slice(8);
+	} else if(feedURL.indexOf('http:') == 0) { // HTTP
+		// Add-on ändern
+		$('#feedURLAddon').text('http://');
+		// Inputfeld setzen
+		$('#httpsInput').val(0);
+		
+		// Protokoll entfernen
+		var feedURL = feedURL.slice(7);
+	}
+	
+	// Neue URL setzen
+	$('#feedURL').val(feedURL);
+}
+
 // Ajax-Request mit Progressbar
 function ajaxRequest(url) {
 	// Callback

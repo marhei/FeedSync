@@ -77,8 +77,13 @@ class Feeds {
 	**/
 	private function addFeed() {
 		try {
+			// HTTPS?
+			$https = \Core\Request::POST('https', false);
+			// Addon setzen
+			$addon = $https ? 'https://' : 'http://';
+		
 			// Feed-URL laden
-			$feedURL = 'http://'.\Core\Request::POST('feedURL');
+			$feedURL = $addon.\Core\Request::POST('feedURL');
 			// Request hinzufügen
 			$request = new \Core\Header\Request($feedURL);
 			

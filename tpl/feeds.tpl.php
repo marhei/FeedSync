@@ -58,9 +58,10 @@
 
 <form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post">
      <div class="input-prepend">
-     	<span class="add-on">http://</span>
-     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL" id="feedURL">
+     	<span class="add-on" id="feedURLAddon">http://</span>
+     	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL" id="feedURL" onchange="parseFeedURL()">
      </div>
+	 <input type="hidden" name="https" value="0" id="httpsInput">
      <div class="btn-group">
     	<input class="btn" type="submit" value="<?= \Core\Language::main()->get('feeds', 'addFeed') ?>">
     	<button class="btn dropdown-toggle" data-toggle="dropdown">
