@@ -17,6 +17,8 @@
 namespace Config {
 	// Sprache der Oberfläche
 	const LANGUAGE = 'de';
+	// Projektseite von FeedSync
+	const SITE = 'https://github.com/marhei/FeedSync';
 	// Versionsnummer des Skripts
 	const VERSION = '1.1alpha';
 	// Welche API-Version spiegelt dieses Skript wider.
@@ -47,5 +49,13 @@ namespace Config\User {
 	const MAIL = 'test@mail.com';
 	// Passwort
 	const PASSWORD = 'password';
+}
+
+/**
+* Konfiguration für Readability
+**/
+namespace Config\Readability {
+	// Parse-Token
+	const PARSE_TOKEN = '';
 }
 ?>
