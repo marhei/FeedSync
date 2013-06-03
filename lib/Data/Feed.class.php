@@ -12,7 +12,7 @@
 namespace Data;
 
 class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
-	private $id, $faviconID, $title, $request, $siteURL, $lastUpdate;
+	private $id, $faviconID, $title, $request, $siteURL, $lastUpdate, $paused = false;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -86,6 +86,9 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	* Sucht nach neuen Items.
 	**/
 	public function updateItemList() {
+		// Feed pausiert? Abbrechen!
+		if($this->isPaused()) return;
+	
 		// Den Feed öffnen
 		$feed = $this->getFeedObject();
 		// Manager auslesen
@@ -233,6 +236,29 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 		
 		// Array durchlaufen und als gelesen markieren
 		foreach($ids as $current) $manager->markItemAs($current, 'read');
+	}
+	
+	/**
+	* Markiert den Feed als pausiert.
+	**/
+	public function pause() {
+		$this->paused = true;
+	}
+	
+	/**
+	* Markiert den Feed als unpausiert.
+	**/
+	public function unpause() {
+		$this->paused = false;
+	}
+	
+	/**
+	* Gibt zurück, ob der Feed pausiert ist.
+	*
+	* @return bool
+	**/
+	public function isPaused() {
+		return $this->paused;
 	}
 }
 ?>

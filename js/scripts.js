@@ -11,7 +11,9 @@
 
 // Tooltips aktivieren
 $(function () {
-	$("[rel='tooltip']").tooltip();
+	$("[rel='tooltip']").tooltip({
+		container: 'body'
+	});
 });
 
 // Funktion um den Namen eine Gruppe zu ändern
