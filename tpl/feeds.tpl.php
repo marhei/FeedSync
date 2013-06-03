@@ -5,7 +5,6 @@
     		<th><?= \Core\Language::main()->get('feeds', 'tableTitle') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableFeed') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableRefresh') ?></th>
-    		<th><?= \Core\Language::main()->get('feeds', 'tableItems') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableOptions') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableActions') ?></th>
     	</tr>
@@ -18,11 +17,12 @@
     				<a href="<?= \Core\Format::string($currentElement->getSiteURL()) ?>" title="<?= \Core\Language::main()->get('feeds', 'visitWebsite') ?>">
     					<img src="data:<?= $currentElement->getFavicon()->getData() ?>" alt="<?= \Core\Language::main()->get('feeds', 'favicon') ?>" width="16" height="16">
 						<?= \Core\Format::string($currentElement->getTitle()) ?>
-    				</a>
+					</a>
+					<span class="badge badge-info pull-right" rel="tooltip" title="<?= \Core\Language::main()->get('feeds', 'itemsTitle') ?>"><?= \Core\Format::number($currentElement->countAllItems()) ?></span>
+    				
     			</td>
     			<td><?= \Core\Format::string($currentElement->getRequest()->getURL()) ?></td>
     			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false) ?></td>
-    			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
     				<div class="btn-group">
     					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>">
@@ -61,7 +61,7 @@
     	<? endforeach; ?>
     	<? if(!count(self::$moduleVars['manager'])): ?>
     		<tr>
-    			<td colspan="7" class="text-center">
+    			<td colspan="6" class="text-center">
     				<?= \Core\Language::main()->get('feeds', 'noFeeds') ?>
     			</td>
     		</tr>
