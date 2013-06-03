@@ -67,7 +67,7 @@ class Feeds {
 		try {
 			// Dem Manager hinzufügen
 			$this->manager->addObjectsFromOPML($opmlFile['tmp_name']);
-		} catch(\Exception $exception) {
+		} catch(\Exception $exception) { echo $exception;
 			throw new \Exception(\Core\Language::main()->get('feeds', 'errorInvalidOPML'), 3, $exception);
 		}
 	}

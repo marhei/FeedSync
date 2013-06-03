@@ -1,19 +1,19 @@
 FeedSync
 ========
 
-PHP-Programm, das ohne Webinterface zum Syncen von Fever-kompatiblen RSS-Readern verwendet werden kann. Eine kostenlose Möglichkeit, für die Leute, die lediglich einen Sync-Dienst suchen und keine RSS-Webinterface benötigen.
+PHP-Programm, das ohne RSS-Webinterface zum Syncen von Fever-kompatiblen RSS-Readern verwendet werden kann. Eine kostenlose Möglichkeit, für die Leute, die lediglich einen Sync-Dienst suchen.
 
-**Derzeit befindet sich FeedSync noch in Beta-Phase, dadurch kann es noch zu Fehlern kommen. Ich bitte euch, diese Fehler zu melden.**
+Featurerequests oder Fehlermeldungen werden gerne als Issue entgegen genommen.
 
 ### Systemvoraussetzungen
 
-- PHP 5.3 mit installierter JSON-Erweiterung
+- mindestens PHP 5.3
 - mindestens 32 MiB Arbeitsspeicher für PHP
 - MySQL in einer aktuellen Version
 - modernen Browser für das Backend
 
 ### Kompatibilität
-Das Skript ist mit allein Apps, die „Fever“ als Syncmöglichkeit anbieten kompatibel.Dazu gehören um Beispiel:
+Das Skript ist mit allein Apps, die „Fever“ als Syncmöglichkeit anbieten kompatibel. Dazu gehören um Beispiel:
 
 - Reeder (derzeit nur iPhone-Version)
 - Sunstroke

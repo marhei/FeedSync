@@ -56,7 +56,7 @@
     </tbody>
 </table>
 
-<form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post">
+<form class="form-inline text-center" action="<?= self::cml(array('addFeed'=>true)) ?>" method="post" onsubmit="parseFeedURL()">
      <div class="input-prepend">
      	<span class="add-on" id="feedURLAddon">http://</span>
      	<input type="text" placeholder="<?= \Core\Language::main()->get('feeds', 'feedURL') ?>" name="feedURL" id="feedURL" onchange="parseFeedURL()">
@@ -90,7 +90,7 @@
 	
 	<div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true"><?= \Core\Language::main()->get('feeds', 'cancel') ?></button>
-	    <button class="btn btn-primary"><?= \Core\Language::main()->get('feeds', 'import') ?></button>
+	    <button class="btn btn-primary" id="opmlImportButton"><?= \Core\Language::main()->get('feeds', 'import') ?></button>
 	</div>
 	</div>
 </form>

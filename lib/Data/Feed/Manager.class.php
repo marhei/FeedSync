@@ -73,20 +73,42 @@ class Manager extends \Core\Manager {
 			throw new \Exception('Es wurde keine gültige OPML-Datei gesendet.', 1, $exception);
 		}
 		
+		// Managervariable deklarieren
+		$manager = $this;
+		// Neue anonyme Funktion zum hinzufügen eines Feeds
+		$addFeed = function($xmlURL, $currentGroup = NULL) use ($manager) {
+			// Bereits vorhanden?
+			if(!$manager->existObjectForRSS($xmlURL)) {
+				// Request hinzufügen
+				$request = new \Core\Header\Request($xmlURL);
+				// Feed-Objekte erstellen
+				$feed = new \Data\Feed($request);
+				
+				// Feed dem Manager hinzufügen
+				$manager->addObject($feed);
+			}
+			
+			// Feed der Gruppe hinfügen?
+			if($currentGroup) $currentGroup->getRelationship()->addFeed($feed);
+		};
+		
 		// Elemente durchlaufen
 		foreach($opml->body->outline as $current) {
-			// Gar kein RSS?
-			if((string)$current['type'] != 'rss') continue;
-		
-			// XML-URL laden
-			$xmlURL = (string) $current['xmlUrl'];
-			// Bereits vorhanden?
-			if($this->existObjectForRSS($xmlURL)) continue;
-			
-			// Feed-Objekte erstellen
-			$feed = new \Data\Feed($xmlURL);
-			// Feed dem Manager hinzufügen
-			$this->addObject($feed);
+			if(!isset($current['type'])) { // Eine Gruppe?
+				// Gruppe erstellen
+				$group = new \Data\Group((string) $current['title']);
+				// Gruppe dem Manager hinzufügen
+				\Data\Group\Manager::main()->addObject($group);
+				
+				// Unterobjekte durchlaufen und hinzufügen
+				foreach($current as $currentFeed) {
+					// Gar kein RSS? 
+					if((string)$currentFeed['type'] != 'rss') continue;					
+					// Hinzufügen mit Gruppe
+					$addFeed((string)$currentFeed['xmlUrl'], $group);
+				}		
+			} else if($current['type'] == 'rss') // Ein Feed
+				$addFeed((string)$current['xmlUrl']);
 		}
 	}
 	
@@ -102,7 +124,7 @@ class Manager extends \Core\Manager {
 		
 		// Feed durchlaufen
 		foreach($this as $current) {
-			if($current->getURL() == $url) return true;
+			if($current->getRequest()->getURL() == $url) return true;
 		}
 		
 		// Kein Feed vorhanden
