@@ -9,6 +9,11 @@
 * @package FeedSync
 **/
 
+// Tooltips aktivieren
+$(function () {
+	$("[rel='tooltip']").tooltip();
+});
+
 // Funktion um den Namen eine Gruppe zu ändern
 function changeGroupName(spanElement) {
 	// Den aktuellen Gruppenamen auslesen

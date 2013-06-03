@@ -6,6 +6,7 @@
     		<th><?= \Core\Language::main()->get('feeds', 'tableFeed') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableRefresh') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableItems') ?></th>
+    		<th><?= \Core\Language::main()->get('feeds', 'tableOptions') ?></th>
     		<th><?= \Core\Language::main()->get('feeds', 'tableActions') ?></th>
     	</tr>
     </thead>
@@ -24,23 +25,29 @@
     			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
     				<div class="btn-group">
+    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>"><i class="icon-plus-sign"></i></a>
+    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'pauseTitle') ?>"><i class="icon-pause"></i></a>
+    				</div>
+    			</td>
+    			<td>
+    				<div class="btn-group">
     					<a class="btn btn-mini btn-danger" href="<?= self::cml(array('deleteFeed'=>true, 'feedID'=>$currentElement->getID())) ?>">
-    						<i class="icon-trash icon-white"></i>
+    					    <i class="icon-trash icon-white"></i>
     					</a>
     					<button class="btn btn-mini btn-danger dropdown-toggle" data-toggle="dropdown">
-    						<span class="caret"></span>
+    					    <span class="caret"></span>
     					</button>
     					<ul class="dropdown-menu pull-right">
-    						<li>
-    							<a href="<?= self::cml(array('deleteFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
-    								<?= \Core\Language::main()->get('feeds', 'deleteOnlyItems') ?>
-								</a>
-							</li>
-    						<li>
-    							<a href="<?= self::cml(array('deleteReadFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
-									<?= \Core\Language::main()->get('feeds', 'deleteOnlyReadItems') ?>
-    							</a>
-    						</li>
+    					    <li>
+    					    	<a href="<?= self::cml(array('deleteFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
+    					    		<?= \Core\Language::main()->get('feeds', 'deleteOnlyItems') ?>
+						    	</a>
+						    </li>
+    					    <li>
+    					    	<a href="<?= self::cml(array('deleteReadFeedItems'=>true, 'feedID'=>$currentElement->getID())) ?>">
+						    		<?= \Core\Language::main()->get('feeds', 'deleteOnlyReadItems') ?>
+    					    	</a>
+    					    </li>
     					</ul>
     				</div>
     			</td>
