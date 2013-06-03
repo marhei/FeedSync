@@ -24,7 +24,7 @@ class Item implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 						'feed_id'			=> $this->feedID,
 						'title'				=> $this->title,
 						'author'			=> $this->author,
-						'html'				=> $this->html,
+						'html'				=> $this->getHTML(),
 						'url'				=> $this->url,
 						'is_saved'			=> $this->action->isSaved(),
 						'is_read'			=> $this->action->isRead(),
