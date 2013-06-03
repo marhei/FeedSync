@@ -40,6 +40,9 @@ class Feeds {
 			// OPML-Dateien importieren
 			if(\Core\Request::GET('importOPML', false)) $this->importOPML();
 			
+			// Feed pausieren
+			if(\Core\Request::GET('pauseFeed', false)) $this->pauseFeed();
+			
 			// Item löschen
 			if(\Core\Request::GET('deleteFeedItems', false)) $this->deleteFeedItems();
 			// Gelesene Items löschen
@@ -98,6 +101,22 @@ class Feeds {
 	}
 	
 	/**
+	* Pausiert einen Feed.
+	**/
+	private function pauseFeed() {
+		// Feed-ID laden
+		$feedID = \Core\Request::GET('feedID', -1);
+		// Feed laden
+		$feedObject = $this->manager->getObjectForID($feedID);
+	
+		// Pausieren oder Unpausieren
+		$pause = \Core\Request::GET('pause', false);
+		// Entsprechende Methode aufrufen
+		if($pause) $feedObject->pause();
+		else $feedObject->unpause();
+	}
+	
+	/**
 	* Löscht einen Feed.
 	**/
 	private function deleteFeed() {
@@ -147,13 +166,8 @@ class Feeds {
 	* Markiert alle Feeds als gelesen.
 	**/
 	private function markFeedsAsRead() {
-		// Feed-Manager
-		$manager = \Data\Feed\Manager::main();
-		// Alle Feeds laden
-		$manager->loadAll();
-		
 		// Alle Feeds durchlaufen
-		foreach($manager as $feed)
+		foreach($this->manager as $feed)
 			$feed->markAsRead();
 	}
 }

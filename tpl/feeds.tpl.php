@@ -25,8 +25,14 @@
     			<td><?= \Core\Format::number($currentElement->countAllItems()) ?></td>
     			<td>
     				<div class="btn-group">
-    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>"><i class="icon-plus-sign"></i></a>
-    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'pauseTitle') ?>"><i class="icon-pause"></i></a>
+    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>">
+    						<i class="icon-plus-sign"></i>
+    					</a>
+    					<a class="btn btn-mini <? if($currentElement->isPaused()): ?>active<? endif; ?>"
+    						rel="tooltip"title="<?= \Core\Language::main()->get('feeds', 'pauseTitle') ?>"
+    						href="<?= self::cml(array('pauseFeed'=>true, 'feedID'=>$currentElement->getID(), 'pause'=>!$currentElement->isPaused())) ?>">
+    						<i class="icon-pause"></i>
+    					</a>
     				</div>
     			</td>
     			<td>
@@ -55,7 +61,7 @@
     	<? endforeach; ?>
     	<? if(!count(self::$moduleVars['manager'])): ?>
     		<tr>
-    			<td colspan="6" class="text-center">
+    			<td colspan="7" class="text-center">
     				<?= \Core\Language::main()->get('feeds', 'noFeeds') ?>
     			</td>
     		</tr>
