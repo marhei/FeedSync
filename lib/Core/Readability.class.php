@@ -38,7 +38,7 @@ class Readability {
 	* @return string
 	**/
 	public function getContent() {
-		return (string) $this->content;
+		return (string) $this->responseObject->content;
 	}
 	
 	/**
