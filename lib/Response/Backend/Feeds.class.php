@@ -42,6 +42,8 @@ class Feeds {
 			
 			// Feed pausieren
 			if(\Core\Request::GET('pauseFeed', false)) $this->pauseFeed();
+			// Feed-Items sollen über Readability geschickt werden
+			if(\Core\Request::GET('readabilityFeed', false)) $this->readabilityFeed();
 			
 			// Item löschen
 			if(\Core\Request::GET('deleteFeedItems', false)) $this->deleteFeedItems();
@@ -114,6 +116,27 @@ class Feeds {
 		// Entsprechende Methode aufrufen
 		if($pause) $feedObject->pause();
 		else $feedObject->unpause();
+	}
+	
+	/**
+	* Items werden in Zukunft über Readability geladen.
+	**/
+	private function readabilityFeed() {
+		// Feed-ID laden
+		$feedID = \Core\Request::GET('feedID', -1);
+		// Feed laden
+		$feedObject = $this->manager->getObjectForID($feedID);
+	
+		// Pausieren oder Unpausieren
+		$readability = \Core\Request::GET('readability', false);
+		// Entsprechende Methode aufrufen
+		if($readability) {
+			// Exception werfen wenn Readability nicht funktioniert
+			if(!\Core\Readability::isValid()) throw new \Exception(\Core\Language::main()->get('feeds', 'errorNoReadability'), 2);
+			
+			// Markieren
+			$feedObject->useReadability();
+		} else $feedObject->unuseReadability();
 	}
 	
 	/**

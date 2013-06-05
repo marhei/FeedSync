@@ -25,7 +25,9 @@
     			<td><?= \Core\Format::date($currentElement->getLastUpdate(), false) ?></td>
     			<td>
     				<div class="btn-group">
-    					<a class="btn btn-mini" rel="tooltip" href="#" title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>">
+    					<a class="btn btn-mini <? if($currentElement->isReadability()): ?>active<? endif; ?>"
+    						rel="tooltip"title="<?= \Core\Language::main()->get('feeds', 'readabilityTitle') ?>"
+    						href="<?= self::cml(array('readabilityFeed'=>true, 'feedID'=>$currentElement->getID(), 'readability'=>!$currentElement->isReadability())) ?>">
     						<i class="icon-plus-sign"></i>
     					</a>
     					<a class="btn btn-mini <? if($currentElement->isPaused()): ?>active<? endif; ?>"

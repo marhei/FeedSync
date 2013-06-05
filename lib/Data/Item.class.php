@@ -138,6 +138,18 @@ class Item implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	* @return string
 	**/
 	public function getHTML() {
+		// Soll Readability genutzt werden?
+		if($this->getFeed()->isReadability()) {
+			try {
+				// Artikel URL an Readbility senden
+				$readability = new \Core\Readability($this->getURL());
+				
+				// Den Inhalt zurückgeben
+				return $readability->getContent();
+			} catch(\Core\Readability\Exception $exception) {}
+		}
+		
+		// Das mitgelieferte HTML zurückgeben.
 		return $this->html;
 	}
 	

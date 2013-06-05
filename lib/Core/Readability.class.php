@@ -23,7 +23,7 @@ class Readability {
 	**/
 	public function __construct($url) {
 		// URL basteln
-		$parseURL = self::PARSE_URL.'?url='.urlencode($url).'&token='.Config\Readability\PARSE_TOKEN;
+		$parseURL = self::PARSE_URL.'?url='.urlencode($url).'&token='.\Config\Readability\PARSE_TOKEN;
 		// Anfrage stellen
 		$this->responseObject = json_decode(file_get_contents($parseURL));
 		
@@ -52,7 +52,7 @@ class Readability {
 			new self(\Config\SITE);
 			// Alles oaky
 			return true;
-		} catch(Readability\Exception $exception) {
+		} catch(\Exception $exception) {
 			// Fehler aufgetreten
 			return false;
 		}
