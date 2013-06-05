@@ -12,7 +12,8 @@
 namespace Data;
 
 class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Manager\Indentable {
-	private $id, $faviconID, $title, $request, $siteURL, $lastUpdate, $paused = false;
+	private $id, $faviconID, $title, $request, $siteURL, $lastUpdate;
+	private $paused = false, $readability = false;
 	
 	/**
 	* Gibt die Rückgabewerte für die API zurück.
@@ -259,6 +260,29 @@ class Feed implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	**/
 	public function isPaused() {
 		return $this->paused;
+	}
+	
+	/**
+	* Setzt, dass Readability genutzt werden soll.
+	**/
+	public function useReadability() {
+		$this->readability = true;
+	}
+	
+	/**
+	* Setzt, dass Readability nicht genutzt werden soll.
+	**/
+	public function unuseReadability() {
+		$this->readability = false;
+	}
+	
+	/**
+	* Gibt zurück, ob die Feed-Einträge via Readability voll angezeigt werden sollen.
+	*
+	* @return bool
+	**/
+	public function isReadability() {
+		return $this->readability;
 	}
 }
 ?>

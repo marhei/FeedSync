@@ -100,6 +100,21 @@ class Item implements \Core\JSON\Serializable, \Core\XML\Serializable, \Core\Man
 	}
 	
 	/**
+	* Gibt den Feed als Objekt zurück.
+	*
+	* @return Feed
+	**/
+	public function getFeed() {
+		// Manager laden
+		$manager = Feed\Manager::main();
+		// Alle objekte laden
+		$manager->loadAll();
+		
+		// Feed mit entsprechender ID zurückgeben
+		return $manager->getObjectForID($this->feedID);
+	}
+	
+	/**
 	* Gibt den Namen des Items zurück.
 	*
 	* @return string

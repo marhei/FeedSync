@@ -18,14 +18,14 @@
     			<td><?= \Core\Format::number($currentElement->getID()) ?></td>
     			<td>
     				<span onclick="changeGroupName(this)"
-    					title="Klicken um den Namen zu ändern!"
+    					title="<?= \Core\Language::main()->get('groups', 'titleChangeName') ?>"
     					data-group-id="<?= $currentElement->getID() ?>"><?= \Core\Format::string($currentElement->getTitle()) ?></span>
     			</td>
     			<td>
         			<select multiple="multiple" form="changeGroupForm" style="width: 400px;" onchange="$('#submitButton').removeAttr('disabled')" name="groupRelationships[<?= $currentElement->getID() ?>][]">
         				<? foreach(self::$moduleVars['feedManager'] as $currentFeed): ?>
         					<option value="<?= $currentFeed->getID() ?>"
-        						<? if($currentElement->getRelationship()->existFeed($currentFeed->getID())): ?> selected="selected"<? endif; ?> >
+        						<? if($currentElement->getRelationship()->existFeed($currentFeed->getID())): ?> selected="selected"<? endif; ?>>
         						<?= \Core\Format::number($currentFeed->getID()) ?>:
         						<?= \Core\Format::string($currentFeed->getTitle()) ?>
         					</option>
