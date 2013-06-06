@@ -19,6 +19,10 @@ Das Skript ist mit allein Apps, die „Fever“ als Syncmöglichkeit anbieten ko
 - Sunstroke
 - …
 
+### Besonderheiten
+FeedSync bietet einige Funktionen an, die das Lesen von Feeds vereinfachen soll. Dazu gehört zum Beispiel Optionen für einzelne Feeds, die es ermöglichen diese zu pausieren oder für Feed-Einträge den gesamte Artikel über Readability direkt nachzuladen.
+
+
 ### Einschränkungen
 Es gibt einige Funktionen von Fever die durch FeedSync bewusst nicht unterstützt werden. Dazu gehört vor allem Hot Links, aber auch die „Sparks“- und die „Kindling“-Supergruppe. Es gibt ebenso wenig ein RSS-Webinterface.
 
@@ -30,4 +34,12 @@ Derzeit gibt es für die Installation noch keine grafische Unterstützung. Die I
 - „install.sql“-Datei in eine Datenbank-Tabelle importieren
 - „config.inc.php“ anpassen:
 	- MySQL-Zugangsdaten ändern
-	- Benutzerdaten anpassen 
+	- Benutzerdaten anpassen
+	
+### Changelog
+Version 1.0:
+
+- Die Itemanzahl im Backend hat nun keine eigenen Spalte mehr. (Designanpassung)
+- Feeds haben nun verschiedene Optionen dazu gehören derzeit:
+	- Das Pausieren von Feeds. (Es werden keine neuen Einträge nachgeladen.)
+	- Feedeinträge sollen via Readability den gesamten Artikelinhalt enthalten. (Konfiguration von Readability nötig.)
