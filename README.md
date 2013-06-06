@@ -40,6 +40,7 @@ Derzeit gibt es für die Installation noch keine grafische Unterstützung. Die I
 Version 1.0:
 
 - Die Itemanzahl im Backend hat nun keine eigenen Spalte mehr. (Designanpassung)
-- Feeds haben nun verschiedene Optionen dazu gehören derzeit:
+- Feeds haben nun verschiedene Optionen, dazu gehören derzeit:
 	- Das Pausieren von Feeds. (Es werden keine neuen Einträge nachgeladen.)
 	- Feedeinträge sollen via Readability den gesamten Artikelinhalt enthalten. (Konfiguration von Readability nötig.)
+- Hilfe wurde hinzugefügt.

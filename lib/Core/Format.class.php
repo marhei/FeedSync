@@ -102,8 +102,10 @@ class Format {
 		
 		// Diverse BB-Codes umwandeln
 		if($codes) {
+			$string = preg_replace('/\[c\](.*?)\[\/c\]/is', '<code>\1</code>', $string);
 			$string = preg_replace('/\[b\](.*?)\[\/b\]/is', '<strong>\1</strong>', $string);
 			$string = preg_replace('/\[i\](.*?)\[\/i\]/is', '<em>\1</em>', $string);
+			$string = preg_replace('/\[a=(.*?)\](.*?)\[\/a\]/is', '<a href="\1">\2</a>', $string);
 		}
 		
 		// Zeilenumbrüche einfügen

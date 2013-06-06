@@ -20,7 +20,7 @@ namespace Config {
 	// Projektseite von FeedSync
 	const SITE = 'https://github.com/marhei/FeedSync';
 	// Versionsnummer des Skripts
-	const VERSION = '1.1beta';
+	const VERSION = '1.1';
 	// Welche API-Version spiegelt dieses Skript wider.
 	const API_VERSION = 3;
 	// Debug-Modus?
