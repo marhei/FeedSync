@@ -26,7 +26,7 @@ FeedSync bietet einige Funktionen an, die das Lesen von Feeds vereinfachen soll.
 ### Einschränkungen
 Es gibt einige Funktionen von Fever die durch FeedSync bewusst nicht unterstützt werden. Dazu gehört vor allem Hot Links, aber auch die „Sparks“- und die „Kindling“-Supergruppe. Es gibt ebenso wenig ein RSS-Webinterface.
 
-Ich möchten Fever nicht nachbauen, ich verwenden lediglich eine API die bereits von einigen Apps unterstützt wird. Zusätzlich unterscheidet sich das Konzept von FeedSync an einigen Stellen.
+Ich möchte Fever nicht nachbauen, ich verwende lediglich eine API die bereits von einigen Apps unterstützt wird. Zusätzlich unterscheidet sich das Konzept von FeedSync an einigen Stellen.
 
 ### Installation
 Derzeit gibt es für die Installation noch keine grafische Unterstützung. Die Installation ist jedoch trotzdem ziemlich einfach:
